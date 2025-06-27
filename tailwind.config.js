@@ -5,7 +5,12 @@ module.exports = {
     "./public/index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'serif': ['Crimson Text', 'Georgia', 'serif'],
+        'typewriter': ['Courier Prime', 'Courier New', 'monospace'],
+      },
+    },
   },
   plugins: [],
 }
