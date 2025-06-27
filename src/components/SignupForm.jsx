@@ -34,9 +34,9 @@ const SignupForm = () => {
       <div className="w-full max-w-md mx-auto" style={{ width: '100%', maxWidth: '28rem', margin: '0 auto' }}>
         <div className="text-center mb-12" style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h1 
-            className="font-serif text-4xl font-semibold text-gray-900 mb-3 tracking-tight"
+            className="font-sans text-4xl font-semibold text-gray-900 mb-3 tracking-tight"
             style={{ 
-              fontFamily: "'Crimson Text', Georgia, serif",
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: '2.25rem',
               fontWeight: '600',
               color: '#111827',
@@ -47,12 +47,13 @@ const SignupForm = () => {
             Embodi Computing
           </h1>
           <p 
-            className="font-serif text-lg text-gray-600 leading-relaxed"
+            className="font-sans text-lg text-gray-600 leading-relaxed"
             style={{
-              fontFamily: "'Crimson Text', Georgia, serif",
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: '1.125rem',
               color: '#4B5563',
-              lineHeight: '1.625'
+              lineHeight: '1.625',
+              fontWeight: '400'
             }}
           >
             Join Our Mailing List
@@ -64,18 +65,19 @@ const SignupForm = () => {
             <div>
               <label 
                 htmlFor="name" 
-                className="block font-serif text-sm font-medium text-gray-900 mb-3 tracking-wide"
+                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
                 style={{
                   display: 'block',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Baugeld Spezialisten', monospace",
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   color: '#111827',
                   marginBottom: '0.75rem',
-                  letterSpacing: '0.025em'
+                  letterSpacing: '0.025em',
+                  textTransform: 'uppercase'
                 }}
               >
-                Name *
+                NAME *
               </label>
               <input
                 type="text"
@@ -84,7 +86,7 @@ const SignupForm = () => {
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-serif text-base placeholder-gray-400 transition-colors duration-200"
+                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 transition-colors duration-200"
                 style={{
                   width: '100%',
                   padding: '1rem 0',
@@ -93,7 +95,7 @@ const SignupForm = () => {
                   backgroundColor: 'transparent',
                   outline: 'none',
                   color: '#111827',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Inter', system-ui, sans-serif",
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
@@ -106,18 +108,19 @@ const SignupForm = () => {
             <div>
               <label 
                 htmlFor="email" 
-                className="block font-serif text-sm font-medium text-gray-900 mb-3 tracking-wide"
+                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
                 style={{
                   display: 'block',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Baugeld Spezialisten', monospace",
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   color: '#111827',
                   marginBottom: '0.75rem',
-                  letterSpacing: '0.025em'
+                  letterSpacing: '0.025em',
+                  textTransform: 'uppercase'
                 }}
               >
-                Email *
+                EMAIL *
               </label>
               <input
                 type="email"
@@ -126,7 +129,7 @@ const SignupForm = () => {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-serif text-base placeholder-gray-400 transition-colors duration-200"
+                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 transition-colors duration-200"
                 style={{
                   width: '100%',
                   padding: '1rem 0',
@@ -135,7 +138,7 @@ const SignupForm = () => {
                   backgroundColor: 'transparent',
                   outline: 'none',
                   color: '#111827',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Inter', system-ui, sans-serif",
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
@@ -148,18 +151,19 @@ const SignupForm = () => {
             <div>
               <label 
                 htmlFor="phone" 
-                className="block font-serif text-sm font-medium text-gray-900 mb-3 tracking-wide"
+                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
                 style={{
                   display: 'block',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Baugeld Spezialisten', monospace",
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   color: '#111827',
                   marginBottom: '0.75rem',
-                  letterSpacing: '0.025em'
+                  letterSpacing: '0.025em',
+                  textTransform: 'uppercase'
                 }}
               >
-                Phone
+                PHONE
               </label>
               <input
                 type="tel"
@@ -167,7 +171,7 @@ const SignupForm = () => {
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-serif text-base placeholder-gray-400 transition-colors duration-200"
+                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 transition-colors duration-200"
                 style={{
                   width: '100%',
                   padding: '1rem 0',
@@ -176,7 +180,7 @@ const SignupForm = () => {
                   backgroundColor: 'transparent',
                   outline: 'none',
                   color: '#111827',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Inter', system-ui, sans-serif",
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
@@ -189,18 +193,19 @@ const SignupForm = () => {
             <div>
               <label 
                 htmlFor="note" 
-                className="block font-serif text-sm font-medium text-gray-900 mb-3 tracking-wide"
+                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
                 style={{
                   display: 'block',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Baugeld Spezialisten', monospace",
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   color: '#111827',
                   marginBottom: '0.75rem',
-                  letterSpacing: '0.025em'
+                  letterSpacing: '0.025em',
+                  textTransform: 'uppercase'
                 }}
               >
-                Note
+                NOTE
               </label>
               <textarea
                 id="note"
@@ -208,7 +213,7 @@ const SignupForm = () => {
                 value={form.note}
                 onChange={handleChange}
                 rows="4"
-                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-serif text-base placeholder-gray-400 resize-none transition-colors duration-200"
+                className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 resize-none transition-colors duration-200"
                 style={{
                   width: '100%',
                   padding: '1rem 0',
@@ -217,7 +222,7 @@ const SignupForm = () => {
                   backgroundColor: 'transparent',
                   outline: 'none',
                   color: '#111827',
-                  fontFamily: "'Crimson Text', Georgia, serif",
+                  fontFamily: "'Inter', system-ui, sans-serif",
                   fontSize: '1rem',
                   resize: 'none',
                   transition: 'border-color 0.2s'
@@ -232,13 +237,13 @@ const SignupForm = () => {
           <div className="pt-8" style={{ paddingTop: '2rem' }}>
             <button 
               type="submit"
-              className="w-full bg-gray-900 text-white py-4 px-8 font-typewriter text-xs uppercase tracking-widest hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 border-0"
+              className="w-full bg-gray-900 text-white py-4 px-8 font-mono text-xs uppercase tracking-widest hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 border-0"
               style={{
                 width: '100%',
                 backgroundColor: '#111827',
                 color: 'white',
                 padding: '1rem 2rem',
-                fontFamily: "'Courier Prime', 'Courier New', monospace",
+                fontFamily: "'Baugeld Spezialisten', monospace",
                 fontSize: '0.75rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
@@ -249,7 +254,7 @@ const SignupForm = () => {
               onMouseEnter={(e) => e.target.style.backgroundColor = '#1F2937'}
               onMouseLeave={(e) => e.target.style.backgroundColor = '#111827'}
             >
-              Submit
+              SUBMIT
             </button>
           </div>
         </form>

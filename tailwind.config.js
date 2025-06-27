@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'serif': ['Crimson Text', 'Georgia', 'serif'],
-        'typewriter': ['Courier Prime', 'Courier New', 'monospace'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'mono': ['Baugeld Spezialisten', 'monospace'],
       },
     },
   },
