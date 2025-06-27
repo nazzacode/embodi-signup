@@ -3,7 +3,7 @@
 Save this file as `PROJECT_GUIDE.md` in your project root directory for persistent reference.
 
 ## Project Overview
-Build a simple mailing list signup page for Embodi Computing using React, Tailwind CSS, Netlify hosting, and HubSpot form integration.
+Build a simple mailing list signup page for Embodi Computing using React, Tailwind CSS, Netlify hosting, and Formspree -> Airtable backend integration.
 
 ## Step 1: Project Structure & Basic Setup
 Create a new React project with this structure:
@@ -50,19 +50,22 @@ Add client-side validation:
 
 **Test 4**: Form prevents submission with invalid data and shows appropriate errors.
 
-## Step 5: HubSpot Integration
-Integrate with HubSpot Forms API:
-- Set up HubSpot form endpoint
-- Handle form submission
-- Add loading states
-- Show success/error messages
+## Step 5: Formspree -> Airtable Integration
+Set up Formspree to collect form submissions and automatically send them to Airtable:
+- Create Airtable base with appropriate fields (Name, Email, Phone, Note, Timestamp)
+- Set up Formspree form endpoint
+- Configure Formspree to integrate with Airtable
+- Update form to submit to Formspree endpoint
+- Add loading states and success/error handling
+- Test form submission flow
 
-**Test 5**: Form successfully submits data to HubSpot and shows confirmation.
+**Test 5**: Form successfully submits data through Formspree to Airtable and shows confirmation.
 
 ## Step 6: Netlify Deployment
 - Add netlify.toml configuration
 - Set up build commands
-- Configure environment variables for HubSpot
+- Configure environment variables for Formspree endpoint
+- Deploy to Netlify and test production form
 
 **Test 6**: Site deploys successfully on Netlify and form works in production.
 
@@ -71,6 +74,23 @@ Integrate with HubSpot Forms API:
 - Make small, incremental changes
 - Test after each change
 - Use test-driven development cycle
+
+## Backend Setup Instructions
+
+### Airtable Setup:
+1. Create new Airtable base called "Embodi Mailing List"
+2. Create table with fields:
+   - Name (Single line text)
+   - Email (Email)
+   - Phone (Phone number)
+   - Note (Long text)
+   - Timestamp (Created time)
+
+### Formspree Setup:
+1. Sign up at formspree.io
+2. Create new form
+3. Configure Airtable integration in Formspree dashboard
+4. Get form endpoint URL for frontend integration
 
 ## Required Fields
 - Name (text, required)
