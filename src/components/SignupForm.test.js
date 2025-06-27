@@ -182,12 +182,26 @@ describe('SignupForm - Formspree Integration', () => {
 
     await user.click(submitButton);
 
-    // Wait for success and form reset
+    // Wait for success message to appear (form is replaced with success screen)
     await waitFor(() => {
-      expect(nameInput.value).toBe('');
-      expect(emailInput.value).toBe('');
-      expect(phoneInput.value).toBe('');
-      expect(noteInput.value).toBe('');
+      expect(screen.getByText(/thank you/i)).toBeInTheDocument();
+    });
+
+    // Click "Submit Another" to return to form
+    const submitAnotherButton = screen.getByRole('button', { name: /submit another/i });
+    await user.click(submitAnotherButton);
+
+    // Now verify the form is reset
+    await waitFor(() => {
+      const newNameInput = screen.getByPlaceholderText('NAME *');
+      const newEmailInput = screen.getByPlaceholderText('EMAIL *');
+      const newPhoneInput = screen.getByPlaceholderText('PHONE');
+      const newNoteInput = screen.getByPlaceholderText('NOTE');
+      
+      expect(newNameInput.value).toBe('');
+      expect(newEmailInput.value).toBe('');
+      expect(newPhoneInput.value).toBe('');
+      expect(newNoteInput.value).toBe('');
     });
   });
 
