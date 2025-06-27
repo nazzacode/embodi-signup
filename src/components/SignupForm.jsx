@@ -21,17 +21,29 @@ const SignupForm = () => {
 
   return (
     <div 
-      className="min-h-screen bg-white flex items-center justify-center px-4"
+      className="min-h-screen bg-gray-50 flex items-center justify-center px-4"
       style={{
         minHeight: '100vh',
-        backgroundColor: 'white',
+        backgroundColor: '#f9fafb',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem'
       }}
     >
-      <div className="w-full max-w-md mx-auto" style={{ width: '100%', maxWidth: '28rem', margin: '0 auto' }}>
+      <div 
+        className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg border border-gray-200" 
+        style={{ 
+          width: '100%', 
+          maxWidth: '28rem', 
+          margin: '0 auto',
+          backgroundColor: 'white',
+          borderRadius: '0.5rem',
+          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+          border: '1px solid #e5e7eb',
+          padding: '3rem 2rem'
+        }}
+      >
         <div className="text-center mb-12" style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h1 
             className="font-sans text-4xl font-semibold text-gray-900 mb-3 tracking-tight"
@@ -56,29 +68,13 @@ const SignupForm = () => {
               fontWeight: '400'
             }}
           >
-            Join Our Mailing List
+            Join our mailing list
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
-              <label 
-                htmlFor="name" 
-                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
-                style={{
-                  display: 'block',
-                  fontFamily: "'Baugeld Spezialisten', monospace",
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  marginBottom: '0.75rem',
-                  letterSpacing: '0.025em',
-                  textTransform: 'uppercase'
-                }}
-              >
-                NAME *
-              </label>
               <input
                 type="text"
                 id="name"
@@ -99,29 +95,13 @@ const SignupForm = () => {
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
-                placeholder="Enter your full name"
+                placeholder="NAME *"
                 onFocus={(e) => e.target.style.borderBottomColor = '#111827'}
                 onBlur={(e) => e.target.style.borderBottomColor = '#E5E7EB'}
               />
             </div>
             
             <div>
-              <label 
-                htmlFor="email" 
-                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
-                style={{
-                  display: 'block',
-                  fontFamily: "'Baugeld Spezialisten', monospace",
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  marginBottom: '0.75rem',
-                  letterSpacing: '0.025em',
-                  textTransform: 'uppercase'
-                }}
-              >
-                EMAIL *
-              </label>
               <input
                 type="email"
                 id="email"
@@ -142,29 +122,13 @@ const SignupForm = () => {
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
-                placeholder="Enter your email address"
+                placeholder="EMAIL *"
                 onFocus={(e) => e.target.style.borderBottomColor = '#111827'}
                 onBlur={(e) => e.target.style.borderBottomColor = '#E5E7EB'}
               />
             </div>
             
             <div>
-              <label 
-                htmlFor="phone" 
-                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
-                style={{
-                  display: 'block',
-                  fontFamily: "'Baugeld Spezialisten', monospace",
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  marginBottom: '0.75rem',
-                  letterSpacing: '0.025em',
-                  textTransform: 'uppercase'
-                }}
-              >
-                PHONE
-              </label>
               <input
                 type="tel"
                 id="phone"
@@ -184,29 +148,13 @@ const SignupForm = () => {
                   fontSize: '1rem',
                   transition: 'border-color 0.2s'
                 }}
-                placeholder="Enter your phone number"
+                placeholder="PHONE"
                 onFocus={(e) => e.target.style.borderBottomColor = '#111827'}
                 onBlur={(e) => e.target.style.borderBottomColor = '#E5E7EB'}
               />
             </div>
             
             <div>
-              <label 
-                htmlFor="note" 
-                className="block font-mono text-sm font-medium text-gray-900 mb-3 tracking-wide"
-                style={{
-                  display: 'block',
-                  fontFamily: "'Baugeld Spezialisten', monospace",
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  marginBottom: '0.75rem',
-                  letterSpacing: '0.025em',
-                  textTransform: 'uppercase'
-                }}
-              >
-                NOTE
-              </label>
               <textarea
                 id="note"
                 name="note"
@@ -227,7 +175,7 @@ const SignupForm = () => {
                   resize: 'none',
                   transition: 'border-color 0.2s'
                 }}
-                placeholder="Add any additional notes"
+                placeholder="NOTE"
                 onFocus={(e) => e.target.style.borderBottomColor = '#111827'}
                 onBlur={(e) => e.target.style.borderBottomColor = '#E5E7EB'}
               />
