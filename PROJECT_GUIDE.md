@@ -42,15 +42,7 @@ Style the form with Tailwind CSS:
 
 **Test 3**: Form looks professional on desktop and mobile.
 
-## Step 4: Form Validation
-Add client-side validation:
-- Required field validation
-- Email format validation
-- Display error messages
-
-**Test 4**: Form prevents submission with invalid data and shows appropriate errors.
-
-## Step 5: Formspree -> Airtable Integration
+## Step 4: Formspree -> Airtable Integration
 Set up Formspree to collect form submissions and automatically send them to Airtable:
 - Create Airtable base with appropriate fields (Name, Email, Phone, Note, Timestamp)
 - Set up Formspree form endpoint
@@ -59,7 +51,15 @@ Set up Formspree to collect form submissions and automatically send them to Airt
 - Add loading states and success/error handling
 - Test form submission flow
 
-**Test 5**: Form successfully submits data through Formspree to Airtable and shows confirmation.
+**Test 4**: Form successfully submits data through Formspree to Airtable and shows confirmation.
+
+## Step 5: Form Validation
+Add client-side validation:
+- Required field validation
+- Email format validation
+- Display error messages
+
+**Test 5**: Form prevents submission with invalid data and shows appropriate errors.
 
 ## Step 6: Netlify Deployment
 - Add netlify.toml configuration
