@@ -7,15 +7,15 @@ import SignupForm from './SignupForm';
 // Mock fetch globally
 global.fetch = jest.fn();
 
-describe('SignupForm - Formspree Integration', () => {
+describe('SignupForm - Airtable Integration', () => {
   beforeEach(() => {
     fetch.mockClear();
   });
 
-  test('should submit form data to Formspree endpoint', async () => {
+  test('should submit form data to Airtable endpoint', async () => {
     const user = userEvent.setup();
     
-    // Mock successful Formspree response
+    // Mock successful Airtable response
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ message: 'Form submitted successfully' }),
@@ -41,7 +41,7 @@ describe('SignupForm - Formspree Integration', () => {
     // Verify fetch was called with correct data
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
-        process.env.REACT_APP_FORMSPREE_ENDPOINT,
+        process.env.REACT_APP_FORM_ENDPOINT,
         expect.objectContaining({
           method: 'POST',
           headers: {
@@ -133,7 +133,7 @@ describe('SignupForm - Formspree Integration', () => {
     });
   });
 
-  test('should handle Formspree error responses', async () => {
+  test('should handle Airtable error responses', async () => {
     const user = userEvent.setup();
     
     fetch.mockResolvedValueOnce({
@@ -152,7 +152,7 @@ describe('SignupForm - Formspree Integration', () => {
     await user.type(emailInput, 'invalid-email');
     await user.click(submitButton);
 
-    // Should show Formspree error message
+    // Should show Airtable error message
     await waitFor(() => {
       expect(screen.getByText(/submission failed/i)).toBeInTheDocument();
     });

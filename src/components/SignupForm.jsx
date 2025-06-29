@@ -34,7 +34,7 @@ const SignupForm = () => {
     });
 
     try {
-      const response = await fetch(process.env.REACT_APP_FORMSPREE_ENDPOINT, {
+      const response = await fetch(process.env.REACT_APP_FORM_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const SignupForm = () => {
           note: '',
         });
       } else {
-        const errorData = await response.json();
+        // const errorData = await response.json();
         setSubmissionState({
           isSubmitting: false,
           isSuccess: false,
