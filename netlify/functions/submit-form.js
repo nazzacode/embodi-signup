@@ -51,6 +51,21 @@ exports.handler = async (event, context) => {
     };
   } catch (error) {
     console.error('Error submitting to Airtable:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
+    // Check environment variables
+    console.log('Environment check:', {
+      hasToken: !!process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
+      hasBaseId: !!process.env.AIRTABLE_BASE_ID,
+      hasTableName: !!process.env.AIRTABLE_TABLE_NAME,
+      tokenLength: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN?.length || 0,
+      baseId: process.env.AIRTABLE_BASE_ID,
+      tableName: process.env.AIRTABLE_TABLE_NAME
+    });
     
     return {
       statusCode: 500,
@@ -62,6 +77,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         success: false,
         error: 'Failed to submit form. Please try again.',
+        debug: error.message // Temporary for debugging
       }),
     };
   }
