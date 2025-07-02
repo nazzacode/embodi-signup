@@ -34,7 +34,39 @@ const SignupForm = () => {
     });
 
     try {
-      const response = await fetch(process.env.REACT_APP_FORM_ENDPOINT, {
+      // Determine the endpoint - use localhost for development
+      const isDevelopment = process.env.NODE_ENV === 'development' && window.location.hostname === 'localhost';
+      let endpoint = process.env.REACT_APP_FORM_ENDPOINT || '/.netlify/functions/submit-form';
+      
+      // For development, simulate success since netlify dev isn't working
+      if (isDevelopment && window.location.port === '3000') {
+        console.log('Development mode: Simulating form submission with data:', {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          note: form.note,
+        });
+        
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        setSubmissionState({
+          isSubmitting: false,
+          isSuccess: true,
+          error: null,
+        });
+        
+        // Reset form after successful submission
+        setForm({
+          name: '',
+          email: '',
+          phone: '',
+          note: '',
+        });
+        return;
+      }
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
