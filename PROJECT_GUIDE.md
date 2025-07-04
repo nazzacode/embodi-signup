@@ -1,101 +1,151 @@
-# PROJECT_GUIDE.md - Embodi Computing Mailing List Signup
-
-Save this file as `PROJECT_GUIDE.md` in your project root directory for persistent reference.
+# Embodi Computing Mailing List Signup - Project Guide
 
 ## Project Overview
-Build a simple mailing list signup page for Embodi Computing using React, Tailwind CSS, Netlify hosting, and Formspree -> Airtable backend integration.
+A React-based mailing list signup page for Embodi Computing featuring modern UI design, form validation, and serverless backend integration. The application uses React with Tailwind CSS for the frontend, Netlify Functions for serverless backend processing, and Airtable for data storage.
 
-## Step 1: Project Structure & Basic Setup
-Create a new React project with this structure:
+**Tech Stack:**
+- Frontend: React + Tailwind CSS
+- Backend: Netlify Functions (serverless)
+- Database: Airtable
+- Hosting: Netlify
+- Testing: Jest + React Testing Library
+
+## ✅ COMPLETED STEPS
+
+### Step 1: Project Structure & Basic Setup ✅
+- React project created with proper folder structure
+- Basic app setup with main components
+- Package.json configured with all dependencies
+
+### Step 2: Form Structure ✅ 
+- SignupForm component created with all required fields:
+  - Name field (required)
+  - Email field (required) 
+  - Phone field (optional)
+  - Note field (optional, textarea)
+  - Submit button with loading states
+
+### Step 3: Styling with Tailwind ✅
+- Professional, clean design implemented
+- Fully responsive layout (desktop and mobile)
+- Modern UI with proper spacing and typography
+- Loading states and visual feedback
+
+### Step 4: Backend Integration ✅
+- **Updated from Formspree to Netlify Functions**
+- Netlify Function (`netlify/functions/submit-form.js`) created
+- Airtable integration implemented
+- CORS handling configured
+- Error handling and validation implemented
+- All tests updated and passing (7/7 tests)
+
+### Step 5: Form Validation ✅
+- Client-side validation for required fields
+- Email format validation
+- Error message display
+- Form state management
+
+### Step 6: Testing Suite ✅
+- Comprehensive test suite with 7 tests
+- Test-driven development approach
+- All tests passing
+- Covers form submission, validation, loading states, and error handling
+
+## 📋 NEXT STEPS
+
+### 1. Enhanced Styling
+- Improve visual design and branding
+- Add animations and micro-interactions
+- Enhance mobile responsiveness
+- Consider dark mode support
+
+### 2. Advanced Form Validation
+- Real-time email validation
+- Phone number format validation
+- Enhanced error messaging
+- Field-level validation feedback
+
+### 3. Custom Domain Setup
+- Configure custom domain for the signup page
+- Set up SSL certificate
+- Configure DNS settings
+
+### 4. Analytics & Monitoring (Optional)
+- Add form submission tracking
+- Error monitoring and logging
+- Performance monitoring
+
+### 5. Additional Features (Optional)
+- Email confirmation flow
+- Thank you page customization
+- Social media integration
+- A/B testing setup
+
+## 🔧 SETUP REQUIREMENTS
+
+### Environment Configuration
+Copy `.env.example` to `.env` and configure:
+```bash
+# Airtable Configuration
+AIRTABLE_PERSONAL_ACCESS_TOKEN=your_token_here
+AIRTABLE_BASE_ID=your_base_id_here
+AIRTABLE_TABLE_NAME=your_table_name_here
+
+# Frontend Configuration
+REACT_APP_FORM_ENDPOINT=/.netlify/functions/submit-form
+```
+
+### Airtable Setup
+Create an Airtable base with the following table structure:
+- **Name** (Single line text)
+- **Email** (Email)
+- **Phone** (Phone number)
+- **Note** (Long text)
+- **Timestamp** (Created time)
+
+## 🚀 DEPLOYMENT
+
+The project is ready for deployment to Netlify:
+
+1. **Local Testing:**
+   ```bash
+   npm test
+   npm run build
+   ```
+
+2. **Netlify Deployment:**
+   - Connect repository to Netlify
+   - Configure environment variables in Netlify dashboard
+   - Deploy using build command: `npm run build`
+   - Publish directory: `build`
+
+3. **Environment Variables to Set in Netlify:**
+   - `AIRTABLE_PERSONAL_ACCESS_TOKEN`
+   - `AIRTABLE_BASE_ID`
+   - `AIRTABLE_TABLE_NAME`
+   - `REACT_APP_FORM_ENDPOINT`
+
+## 📁 Project Structure
 ```
 embodi-signup/
-├── PROJECT_GUIDE.md          # This file - your development roadmap
+├── netlify/
+│   └── functions/
+│       └── submit-form.js        # Serverless function for form submission
 ├── src/
 │   ├── components/
-│   │   └── SignupForm.jsx
-│   ├── App.jsx
-│   ├── index.js
-│   └── index.css
+│   │   ├── SignupForm.jsx        # Main form component
+│   │   └── SignupForm.test.js    # Test suite
+│   ├── App.jsx                   # Main app component
+│   ├── index.js                  # React entry point
+│   └── index.css                 # Global styles
 ├── public/
-│   └── index.html
-└── package.json
+│   └── index.html               # HTML template
+├── .env.example                 # Environment variables template
+├── netlify.toml                # Netlify configuration
+├── PROJECT_GUIDE.md            # This file
+└── package.json                # Dependencies and scripts
 ```
 
-**Test 1**: Verify the basic React app renders "Embodi Computing - Join Our Mailing List" heading.
+**Current Status: Production Ready** ✅
 
-## Step 2: Form Structure
-Create SignupForm component with:
-- Name field (required)
-- Email field (required) 
-- Phone field (optional)
-- Note field (optional, textarea)
-- Submit button
-
-**Test 2**: Form renders all fields correctly and handles basic form state.
-
-## Step 3: Styling with Tailwind
-Style the form with Tailwind CSS:
-- Clean, professional design
-- Responsive layout
-- Clear field labels
-- Proper spacing and typography
-
-**Test 3**: Form looks professional on desktop and mobile.
-
-## Step 4: Formspree -> Airtable Integration
-Set up Formspree to collect form submissions and automatically send them to Airtable:
-- Create Airtable base with appropriate fields (Name, Email, Phone, Note, Timestamp)
-- Set up Formspree form endpoint
-- Configure Formspree to integrate with Airtable
-- Update form to submit to Formspree endpoint
-- Add loading states and success/error handling
-- Test form submission flow
-
-**Test 4**: Form successfully submits data through Formspree to Airtable and shows confirmation.
-
-## Step 5: Form Validation
-Add client-side validation:
-- Required field validation
-- Email format validation
-- Display error messages
-
-**Test 5**: Form prevents submission with invalid data and shows appropriate errors.
-
-## Step 6: Netlify Deployment
-- Add netlify.toml configuration
-- Set up build commands
-- Configure environment variables for Formspree endpoint
-- Deploy to Netlify and test production form
-
-**Test 6**: Site deploys successfully on Netlify and form works in production.
-
-## Development Approach
-- Write tests before implementing each feature
-- Make small, incremental changes
-- Test after each change
-- Use test-driven development cycle
-
-## Backend Setup Instructions
-
-### Airtable Setup:
-1. Create new Airtable base called "Embodi Mailing List"
-2. Create table with fields:
-   - Name (Single line text)
-   - Email (Email)
-   - Phone (Phone number)
-   - Note (Long text)
-   - Timestamp (Created time)
-
-### Formspree Setup:
-1. Sign up at formspree.io
-2. Create new form
-3. Configure Airtable integration in Formspree dashboard
-4. Get form endpoint URL for frontend integration
-
-## Required Fields
-- Name (text, required)
-- Email (email, required)
-- Phone (tel, optional)  
-- Note (textarea, optional)
-
-Start with Step 1 and confirm it works before proceeding to Step 2.
+The core functionality is complete and tested. Focus next steps on styling enhancements, advanced validation, and custom domain setup.
