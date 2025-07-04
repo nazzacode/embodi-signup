@@ -11,6 +11,7 @@ const SignupFormFields = ({
   isSubmitting,
   error,
   validationErrors = {},
+  formStage = 'initial',
 }) => {
   return (
     <div
@@ -32,6 +33,18 @@ const SignupFormFields = ({
         className="text-center mb-12"
         style={{ textAlign: 'center', marginBottom: '3rem' }}
       >
+        <div
+          className="font-sans text-lg text-gray-600 mb-3"
+          style={{
+            fontFamily: "'Inter', system-ui, sans-serif",
+            fontSize: '1.125rem',
+            color: '#4B5563',
+            marginBottom: '0.75rem',
+            fontWeight: '400',
+          }}
+        >
+          {MESSAGES.CONTENT.LOGO}
+        </div>
         <h1
           className="font-sans text-4xl font-semibold text-gray-900 mb-3 tracking-tight"
           style={{
@@ -43,7 +56,7 @@ const SignupFormFields = ({
             letterSpacing: '-0.025em',
           }}
         >
-          Embodi Computing
+          {MESSAGES.CONTENT.MAIN_HEADING}
         </h1>
         <p
           className="font-sans text-lg text-gray-600 leading-relaxed"
@@ -55,7 +68,7 @@ const SignupFormFields = ({
             fontWeight: '400',
           }}
         >
-          Join our mailing list
+          {MESSAGES.CONTENT.SUBTITLE}
         </p>
       </div>
 
@@ -72,35 +85,16 @@ const SignupFormFields = ({
           className="space-y-6"
           style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
         >
-          {/* Name Field */}
-          <div>
-            <FormInput
-              type="text"
-              name={FORM_FIELDS.NAME}
-              value={formData[FORM_FIELDS.NAME]}
-              onChange={onChange}
-              placeholder="NAME *"
-              required
-              disabled={isSubmitting}
-              data-testid="name-input"
-            />
-            {validationErrors[FORM_FIELDS.NAME] && (
-              <div style={{ color: '#DC2626', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                {validationErrors[FORM_FIELDS.NAME]}
-              </div>
-            )}
-          </div>
-
-          {/* Email Field */}
+          {/* Email Field - always shown */}
           <div>
             <FormInput
               type="email"
               name={FORM_FIELDS.EMAIL}
               value={formData[FORM_FIELDS.EMAIL]}
               onChange={onChange}
-              placeholder="EMAIL *"
+              placeholder="Email"
               required
-              disabled={isSubmitting}
+              disabled={isSubmitting || formStage === 'expanded'}
               data-testid="email-input"
             />
             {validationErrors[FORM_FIELDS.EMAIL] && (
@@ -110,42 +104,52 @@ const SignupFormFields = ({
             )}
           </div>
 
-          {/* Phone Field */}
-          <div>
-            <FormInput
-              type="tel"
-              name={FORM_FIELDS.PHONE}
-              value={formData[FORM_FIELDS.PHONE]}
-              onChange={onChange}
-              placeholder="PHONE"
-              disabled={isSubmitting}
-              data-testid="phone-input"
-            />
-            {validationErrors[FORM_FIELDS.PHONE] && (
-              <div style={{ color: '#DC2626', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                {validationErrors[FORM_FIELDS.PHONE]}
+          {/* Additional fields - only shown in expanded stage */}
+          {formStage === 'expanded' && (
+            <>
+              {/* Name Field */}
+              <div>
+                <FormInput
+                  type="text"
+                  name={FORM_FIELDS.NAME}
+                  value={formData[FORM_FIELDS.NAME]}
+                  onChange={onChange}
+                  placeholder="Name (optional)"
+                  disabled={isSubmitting}
+                  data-testid="name-input"
+                />
+                <div style={{ color: '#6B7280', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                  {MESSAGES.CONTENT.NAME_EXPLAINER}
+                </div>
+                {validationErrors[FORM_FIELDS.NAME] && (
+                  <div style={{ color: '#DC2626', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                    {validationErrors[FORM_FIELDS.NAME]}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Note Field */}
-          <div>
-            <FormInput
-              type="textarea"
-              name={FORM_FIELDS.NOTE}
-              value={formData[FORM_FIELDS.NOTE]}
-              onChange={onChange}
-              placeholder="NOTE"
-              rows={4}
-              disabled={isSubmitting}
-              data-testid="note-input"
-            />
-            {validationErrors[FORM_FIELDS.NOTE] && (
-              <div style={{ color: '#DC2626', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                {validationErrors[FORM_FIELDS.NOTE]}
+              {/* Phone Field */}
+              <div>
+                <FormInput
+                  type="tel"
+                  name={FORM_FIELDS.PHONE}
+                  value={formData[FORM_FIELDS.PHONE]}
+                  onChange={onChange}
+                  placeholder="Phone (optional)"
+                  disabled={isSubmitting}
+                  data-testid="phone-input"
+                />
+                <div style={{ color: '#6B7280', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                  {MESSAGES.CONTENT.PHONE_EXPLAINER}
+                </div>
+                {validationErrors[FORM_FIELDS.PHONE] && (
+                  <div style={{ color: '#DC2626', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                    {validationErrors[FORM_FIELDS.PHONE]}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
 
         {/* Submit Button */}
@@ -156,8 +160,24 @@ const SignupFormFields = ({
             loading={isSubmitting}
             data-testid="submit-button"
           >
-            {isSubmitting ? MESSAGES.LOADING.SUBMITTING : 'SUBMIT'}
+            {isSubmitting ? MESSAGES.LOADING.SUBMITTING : MESSAGES.CONTENT.SUBMIT_BUTTON}
           </Button>
+          
+          {/* Subtext - only shown in initial stage */}
+          {formStage === 'initial' && (
+            <p
+              className="text-center text-sm text-gray-500 mt-3"
+              style={{
+                textAlign: 'center',
+                fontSize: '0.875rem',
+                color: '#6B7280',
+                marginTop: '0.75rem',
+                fontFamily: "'Inter', system-ui, sans-serif",
+              }}
+            >
+              {MESSAGES.CONTENT.SUBMIT_SUBTEXT}
+            </p>
+          )}
         </div>
       </form>
     </div>

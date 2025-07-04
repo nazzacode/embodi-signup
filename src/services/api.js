@@ -79,9 +79,9 @@ const simulateFormSubmission = async (formData) => {
  * @returns {Promise} - Submission response
  */
 export const submitForm = async (formData) => {
-  // Validate required fields before making request
-  if (!formData.name?.trim() || !formData.email?.trim()) {
-    throw new Error('Name and email are required');
+  // Validate required fields before making request - only email is required
+  if (!formData.email?.trim()) {
+    throw new Error('Email is required');
   }
 
   // Use simulation in development when running on localhost:3000
@@ -98,7 +98,7 @@ export const submitForm = async (formData) => {
     const response = await apiRequest(API_ENDPOINTS.SUBMIT_FORM, {
       method: 'POST',
       body: JSON.stringify({
-        name: formData.name.trim(),
+        name: formData.name?.trim() || '',
         email: formData.email.trim(),
         phone: formData.phone?.trim() || '',
         note: formData.note?.trim() || '',

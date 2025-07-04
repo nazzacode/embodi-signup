@@ -13,12 +13,12 @@ exports.handler = async (event, context) => {
     // Parse the request body
     const { name, email, phone, note } = JSON.parse(event.body);
 
-    // Validate required fields
-    if (!name || !email) {
+    // Validate required fields - only email is required
+    if (!email) {
       return {
         statusCode: 400,
         body: JSON.stringify({ 
-          error: 'Name and email are required' 
+          error: 'Email is required' 
         }),
       };
     }

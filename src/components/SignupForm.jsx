@@ -8,6 +8,7 @@ const SignupForm = () => {
     formData,
     submissionState,
     validationErrors,
+    formStage,
     handleInputChange,
     handleSubmit,
     handleSuccessReset,
@@ -38,6 +39,7 @@ const SignupForm = () => {
         isSubmitting={submissionState.isSubmitting}
         error={submissionState.error}
         validationErrors={validationErrors}
+        formStage={formStage}
       />
     </div>
   );

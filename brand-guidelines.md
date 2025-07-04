@@ -1,5 +1,7 @@
 # Embodi Computing - Brand Styling Guidelines
 
+COMPUTER GENERATED: DO NOT USE YET.
+
 ## Brand Identity & Vibes
 
 ### Core Brand Essence

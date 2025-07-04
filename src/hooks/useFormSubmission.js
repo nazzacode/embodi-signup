@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { submitForm } from '../services/api';
-import { validateForm } from '../utils/validation';
+import { validateForm, validateEmailOnly } from '../utils/validation';
 import { FORM_FIELDS } from '../constants';
 
 const useFormSubmission = (initialFormData = {}) => {
@@ -19,6 +19,9 @@ const useFormSubmission = (initialFormData = {}) => {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
+  
+  // Track form stage: 'initial' for email-only, 'expanded' for additional fields
+  const [formStage, setFormStage] = useState('initial');
 
   const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -40,7 +43,10 @@ const useFormSubmission = (initialFormData = {}) => {
   };
 
   const validateFormData = () => {
-    const validation = validateForm(formData);
+    // Use different validation based on form stage
+    const validation = formStage === 'initial' 
+      ? validateEmailOnly(formData) 
+      : validateForm(formData);
     setValidationErrors(validation.errors);
     return validation.isValid;
   };
@@ -58,6 +64,7 @@ const useFormSubmission = (initialFormData = {}) => {
       isSuccess: false,
       error: null,
     });
+    setFormStage('initial');
   };
 
   const handleSubmit = async (event) => {
@@ -77,20 +84,32 @@ const useFormSubmission = (initialFormData = {}) => {
     try {
       await submitForm(formData);
       
-      setSubmissionState({
-        isSubmitting: false,
-        isSuccess: true,
-        error: null,
-      });
-      
-      // Reset form data after successful submission
-      setFormData({
-        [FORM_FIELDS.NAME]: '',
-        [FORM_FIELDS.EMAIL]: '',
-        [FORM_FIELDS.PHONE]: '',
-        [FORM_FIELDS.NOTE]: '',
-      });
-      setValidationErrors({});
+      if (formStage === 'initial') {
+        // First submission (email only) - expand the form
+        setSubmissionState({
+          isSubmitting: false,
+          isSuccess: false,
+          error: null,
+        });
+        setFormStage('expanded');
+      } else {
+        // Final submission - show success
+        setSubmissionState({
+          isSubmitting: false,
+          isSuccess: true,
+          error: null,
+        });
+        
+        // Reset form data after successful submission
+        setFormData({
+          [FORM_FIELDS.NAME]: '',
+          [FORM_FIELDS.EMAIL]: '',
+          [FORM_FIELDS.PHONE]: '',
+          [FORM_FIELDS.NOTE]: '',
+        });
+        setValidationErrors({});
+        setFormStage('initial');
+      }
       
     } catch (error) {
       setSubmissionState({
@@ -107,12 +126,14 @@ const useFormSubmission = (initialFormData = {}) => {
       isSuccess: false,
       error: null,
     });
+    setFormStage('initial');
   };
 
   return {
     formData,
     submissionState,
     validationErrors,
+    formStage,
     handleInputChange,
     handleSubmit,
     handleSuccessReset,

@@ -100,6 +100,25 @@ export const validateNote = (note) => {
 };
 
 /**
+ * Validates just the email field for initial submission
+ * @param {Object} formData - Form data to validate
+ * @returns {Object} - { isValid: boolean, errors: Object }
+ */
+export const validateEmailOnly = (formData) => {
+  const errors = {};
+  let isValid = true;
+
+  // Validate email
+  const emailValidation = validateEmail(formData.email);
+  if (!emailValidation.isValid) {
+    errors.email = emailValidation.error;
+    isValid = false;
+  }
+
+  return { isValid, errors };
+};
+
+/**
  * Validates the entire form
  * @param {Object} formData - Form data to validate
  * @returns {Object} - { isValid: boolean, errors: Object }
@@ -108,11 +127,13 @@ export const validateForm = (formData) => {
   const errors = {};
   let isValid = true;
 
-  // Validate name
-  const nameValidation = validateName(formData.name);
-  if (!nameValidation.isValid) {
-    errors.name = nameValidation.error;
-    isValid = false;
+  // Name is now optional in the new flow
+  if (formData.name) {
+    const nameValidation = validateName(formData.name);
+    if (!nameValidation.isValid) {
+      errors.name = nameValidation.error;
+      isValid = false;
+    }
   }
 
   // Validate email

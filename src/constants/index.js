@@ -31,7 +31,7 @@ export const UI_CONFIG = {
 // Messages
 export const MESSAGES = {
   SUCCESS: {
-    FORM_SUBMITTED: 'Your submission has been received successfully.',
+    FORM_SUBMITTED: 'Thank you! Your submission has been received successfully.',
     THANK_YOU: 'Thank you!',
   },
   ERROR: {
@@ -44,6 +44,15 @@ export const MESSAGES = {
   LOADING: {
     SUBMITTING: 'Submitting...',
     PLEASE_WAIT: 'Please wait...',
+  },
+  CONTENT: {
+    LOGO: 'Embodi Computing',
+    MAIN_HEADING: 'So you want a spatial computer?',
+    SUBTITLE: "We've got the missing piece.",
+    SUBMIT_BUTTON: 'Submit',
+    SUBMIT_SUBTEXT: '~1 update/month, never spam',
+    NAME_EXPLAINER: 'To address you by name.',
+    PHONE_EXPLAINER: 'Get updates 48hrs in advance.',
   },
 };
 

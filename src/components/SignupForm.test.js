@@ -7,38 +7,78 @@ import SignupForm from './SignupForm';
 // Mock fetch globally
 global.fetch = jest.fn();
 
-describe('SignupForm - Airtable Integration', () => {
+describe('SignupForm - Progressive Disclosure Flow', () => {
   beforeEach(() => {
     fetch.mockClear();
   });
 
-  test('should submit form data to Airtable endpoint', async () => {
+  test('should submit email first, then expand form for additional details', async () => {
     const user = userEvent.setup();
 
-    // Mock successful Airtable response
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ message: 'Form submitted successfully' }),
-    });
+    // Mock successful Airtable response for both submissions
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      });
 
     render(<SignupForm />);
 
-    // Fill out the form
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
-    const phoneInput = screen.getByPlaceholderText('PHONE');
-    const noteInput = screen.getByPlaceholderText('NOTE');
+    // Initially only email field should be visible
+    const emailInput = screen.getByPlaceholderText('Email');
+    expect(emailInput).toBeInTheDocument();
+    
+    // Name and phone should not be visible initially
+    expect(screen.queryByPlaceholderText('Name (optional)')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Phone (optional)')).not.toBeInTheDocument();
+
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    await user.type(nameInput, 'John Doe');
+    // Submit email only
     await user.type(emailInput, 'john@example.com');
-    await user.type(phoneInput, '+1234567890');
-    await user.type(noteInput, 'Test note');
-
-    // Submit the form
     await user.click(submitButton);
 
-    // Verify fetch was called with correct data
+    // Verify first fetch was called with email only
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith(
+        process.env.REACT_APP_FORM_ENDPOINT,
+        expect.objectContaining({
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: '',
+            email: 'john@example.com',
+            phone: '',
+            note: '',
+          }),
+        })
+      );
+    });
+
+    // After first submission, additional fields should be visible
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('Name (optional)')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Phone (optional)')).toBeInTheDocument();
+    });
+
+    // Email should be disabled after first submission
+    expect(emailInput).toBeDisabled();
+
+    // Fill additional fields and submit again
+    const nameInput = screen.getByPlaceholderText('Name (optional)');
+    const phoneInput = screen.getByPlaceholderText('Phone (optional)');
+
+    await user.type(nameInput, 'John Doe');
+    await user.type(phoneInput, '+1234567890');
+    await user.click(submitButton);
+
+    // Verify second fetch was called with complete data
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
         process.env.REACT_APP_FORM_ENDPOINT,
@@ -51,10 +91,15 @@ describe('SignupForm - Airtable Integration', () => {
             name: 'John Doe',
             email: 'john@example.com',
             phone: '+1234567890',
-            note: 'Test note',
+            note: '',
           }),
         })
       );
+    });
+
+    // Should show success screen after final submission
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /thank you/i })).toBeInTheDocument();
     });
   });
 
@@ -78,44 +123,56 @@ describe('SignupForm - Airtable Integration', () => {
 
     render(<SignupForm />);
 
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
+    const emailInput = screen.getByPlaceholderText('Email');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    await user.type(nameInput, 'John Doe');
     await user.type(emailInput, 'john@example.com');
     await user.click(submitButton);
 
     // Should show loading state
     expect(screen.getByText(/submitting/i)).toBeInTheDocument();
 
-    // Wait for submission to complete
+    // Wait for submission to complete and form to expand
     await waitFor(() => {
       expect(screen.queryByText(/submitting/i)).not.toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Name (optional)')).toBeInTheDocument();
     });
   });
 
-  test('should show success message after successful submission', async () => {
+  test('should allow email-only submission and show success', async () => {
     const user = userEvent.setup();
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ message: 'Form submitted successfully' }),
-    });
+    // Mock two successful responses (email submission, then final submission)
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      });
 
     render(<SignupForm />);
 
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
+    const emailInput = screen.getByPlaceholderText('Email');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    await user.type(nameInput, 'John Doe');
+    // Submit email only
     await user.type(emailInput, 'john@example.com');
+    await user.click(submitButton);
+
+    // Wait for form to expand
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('Name (optional)')).toBeInTheDocument();
+    });
+
+    // Submit again without filling additional fields
     await user.click(submitButton);
 
     // Should show success message
     await waitFor(() => {
-      expect(screen.getByText(/thank you/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /thank you/i })).toBeInTheDocument();
     });
   });
 
@@ -126,11 +183,9 @@ describe('SignupForm - Airtable Integration', () => {
 
     render(<SignupForm />);
 
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
+    const emailInput = screen.getByPlaceholderText('Email');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    await user.type(nameInput, 'John Doe');
     await user.type(emailInput, 'john@example.com');
     await user.click(submitButton);
 
@@ -151,12 +206,10 @@ describe('SignupForm - Airtable Integration', () => {
 
     render(<SignupForm />);
 
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
+    const emailInput = screen.getByPlaceholderText('Email');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    await user.type(nameInput, 'John Doe');
-    await user.type(emailInput, 'john@example.com'); // Use valid email to reach API
+    await user.type(emailInput, 'john@example.com');
     await user.click(submitButton);
 
     // Should show Airtable error message
@@ -168,30 +221,42 @@ describe('SignupForm - Airtable Integration', () => {
   test('should reset form after successful submission', async () => {
     const user = userEvent.setup();
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ message: 'Form submitted successfully' }),
-    });
+    // Mock successful responses for complete flow
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ message: 'Form submitted successfully' }),
+      });
 
     render(<SignupForm />);
 
-    const nameInput = screen.getByPlaceholderText('NAME *');
-    const emailInput = screen.getByPlaceholderText('EMAIL *');
-    const phoneInput = screen.getByPlaceholderText('PHONE');
-    const noteInput = screen.getByPlaceholderText('NOTE');
+    const emailInput = screen.getByPlaceholderText('Email');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    // Fill out form
-    await user.type(nameInput, 'John Doe');
+    // Fill out email and submit
     await user.type(emailInput, 'john@example.com');
-    await user.type(phoneInput, '+1234567890');
-    await user.type(noteInput, 'Test note');
-
     await user.click(submitButton);
 
-    // Wait for success message to appear (form is replaced with success screen)
+    // Wait for form to expand
     await waitFor(() => {
-      expect(screen.getByText(/thank you/i)).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Name (optional)')).toBeInTheDocument();
+    });
+
+    // Fill additional fields
+    const nameInput = screen.getByPlaceholderText('Name (optional)');
+    const phoneInput = screen.getByPlaceholderText('Phone (optional)');
+
+    await user.type(nameInput, 'John Doe');
+    await user.type(phoneInput, '+1234567890');
+    await user.click(submitButton);
+
+    // Wait for success message to appear
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /thank you/i })).toBeInTheDocument();
     });
 
     // Click "Submit Another" to return to form
@@ -200,32 +265,48 @@ describe('SignupForm - Airtable Integration', () => {
     });
     await user.click(submitAnotherButton);
 
-    // Now verify the form is reset
+    // Form should be reset to initial state
     await waitFor(() => {
-      const newNameInput = screen.getByPlaceholderText('NAME *');
-      expect(newNameInput.value).toBe('');
+      const newEmailInput = screen.getByPlaceholderText('Email');
+      expect(newEmailInput.value).toBe('');
+      expect(newEmailInput).not.toBeDisabled();
     });
     
-    const newEmailInput = screen.getByPlaceholderText('EMAIL *');
-    const newPhoneInput = screen.getByPlaceholderText('PHONE');
-    const newNoteInput = screen.getByPlaceholderText('NOTE');
-    
-    expect(newEmailInput.value).toBe('');
-    expect(newPhoneInput.value).toBe('');
-    expect(newNoteInput.value).toBe('');
+    // Additional fields should not be visible
+    expect(screen.queryByPlaceholderText('Name (optional)')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Phone (optional)')).not.toBeInTheDocument();
   });
 
-  test('should not submit form with missing required fields', async () => {
+  test('should not submit form with missing email', async () => {
     const user = userEvent.setup();
 
     render(<SignupForm />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    // Try to submit empty form
+    // Try to submit without email
     await user.click(submitButton);
 
-    // Should not call fetch
+    // Should show validation error (email required)
+    await waitFor(() => {
+      expect(screen.getByText(/this field is required/i)).toBeInTheDocument();
+    });
+
+    // Fetch should not be called
     expect(fetch).not.toHaveBeenCalled();
+  });
+
+  test('should show initial stage with correct content', () => {
+    render(<SignupForm />);
+
+    // Check for new content
+    expect(screen.getByText(/So you want a spatial computer/i)).toBeInTheDocument();
+    expect(screen.getByText(/We've got the missing piece/i)).toBeInTheDocument();
+    expect(screen.getByText(/~1 update\/month, never spam/i)).toBeInTheDocument();
+
+    // Only email field should be visible
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Name (optional)')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Phone (optional)')).not.toBeInTheDocument();
   });
 });

@@ -4,9 +4,9 @@ import App from './App';
 
 test('renders signup form', () => {
   render(<App />);
-  const headingElement = screen.getByText(/embodi computing/i);
+  const headingElement = screen.getByText(/So you want a spatial computer/i);
   expect(headingElement).toBeInTheDocument();
   
-  const joinElement = screen.getByText(/join our mailing list/i);
-  expect(joinElement).toBeInTheDocument();
+  const subtitleElement = screen.getByText(/We've got the missing piece/i);
+  expect(subtitleElement).toBeInTheDocument();
 });
