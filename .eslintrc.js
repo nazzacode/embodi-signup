@@ -3,6 +3,11 @@ module.exports = {
     'react-app',
     'react-app/jest'
   ],
+  ignorePatterns: [
+    'src/service-worker.js',
+    'src/serviceWorkerRegistration.js',
+    'src/reportWebVitals.js'
+  ],
   plugins: [
     'react-hooks'
   ],
