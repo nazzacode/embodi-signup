@@ -34,14 +34,15 @@ describe('ConfigurableSignup', () => {
   test('should use configuration for styling and structure', () => {
     render(<ConfigurableSignup />);
 
-    // Check that form container exists (basic structure test)
-    const formContainer = screen.getByRole('button', { name: /submit/i }).closest('form');
-    expect(formContainer).toBeInTheDocument();
-
     // Check that the email input has proper attributes from config
     const emailInput = screen.getByPlaceholderText('Email');
     expect(emailInput).toHaveAttribute('type', 'email');
     expect(emailInput).toHaveAttribute('required');
     expect(emailInput).not.toBeDisabled();
+
+    // Check that submit button is present and properly configured
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toHaveAttribute('type', 'submit');
   });
 }); 

@@ -2,7 +2,7 @@ import React from 'react';
 import FormInput from '../ui/FormInput';
 import Button from '../ui/Button';
 import ErrorMessage from '../ui/ErrorMessage';
-import { formConfig, getStageConfig, getContent, FORM_STAGES } from '../../config/form-config';
+import { formConfig, getStageConfig, FORM_STAGES } from '../../config/form-config';
 
 const ConfigurableSignupForm = ({
   formData,
@@ -17,6 +17,7 @@ const ConfigurableSignupForm = ({
   const stageConfig = getStageConfig(formStage);
   
   if (!stageConfig) {
+    // eslint-disable-next-line no-console
     console.error(`Unknown form stage: ${formStage}`);
     return null;
   }
