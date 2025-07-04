@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import SignupForm from './SignupForm';
@@ -136,7 +136,7 @@ describe('SignupForm - Airtable Integration', () => {
 
     // Should show error message
     await waitFor(() => {
-      expect(screen.getByText(/error/i)).toBeInTheDocument();
+      expect(screen.getByText(/submission failed/i)).toBeInTheDocument();
     });
   });
 
@@ -156,7 +156,7 @@ describe('SignupForm - Airtable Integration', () => {
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     await user.type(nameInput, 'John Doe');
-    await user.type(emailInput, 'invalid-email');
+    await user.type(emailInput, 'john@example.com'); // Use valid email to reach API
     await user.click(submitButton);
 
     // Should show Airtable error message
@@ -203,15 +203,16 @@ describe('SignupForm - Airtable Integration', () => {
     // Now verify the form is reset
     await waitFor(() => {
       const newNameInput = screen.getByPlaceholderText('NAME *');
-      const newEmailInput = screen.getByPlaceholderText('EMAIL *');
-      const newPhoneInput = screen.getByPlaceholderText('PHONE');
-      const newNoteInput = screen.getByPlaceholderText('NOTE');
-
       expect(newNameInput.value).toBe('');
-      expect(newEmailInput.value).toBe('');
-      expect(newPhoneInput.value).toBe('');
-      expect(newNoteInput.value).toBe('');
     });
+    
+    const newEmailInput = screen.getByPlaceholderText('EMAIL *');
+    const newPhoneInput = screen.getByPlaceholderText('PHONE');
+    const newNoteInput = screen.getByPlaceholderText('NOTE');
+    
+    expect(newEmailInput.value).toBe('');
+    expect(newPhoneInput.value).toBe('');
+    expect(newNoteInput.value).toBe('');
   });
 
   test('should not submit form with missing required fields', async () => {

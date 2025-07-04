@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
 import SignupForm from './components/SignupForm';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
-    <div className="App">
-      <SignupForm />
-    </div>
+    <ErrorBoundary>
+      <div className="App">
+        <SignupForm />
+      </div>
+    </ErrorBoundary>
   );
 }
 

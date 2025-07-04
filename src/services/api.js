@@ -51,6 +51,7 @@ const apiRequest = async (url, options = {}) => {
  * @returns {Promise} - Simulated response
  */
 const simulateFormSubmission = async (formData) => {
+  // eslint-disable-next-line no-console
   console.log(
     'Development mode: Simulating form submission with data:',
     formData
@@ -106,6 +107,7 @@ export const submitForm = async (formData) => {
 
     return response;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Form submission error:', error);
 
     // Re-throw with user-friendly message
@@ -133,6 +135,7 @@ export const healthCheck = async () => {
 
     return response.ok;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.warn('API health check failed:', error);
     return false;
   }

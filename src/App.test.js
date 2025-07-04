@@ -2,8 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders signup form', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headingElement = screen.getByText(/embodi computing/i);
+  expect(headingElement).toBeInTheDocument();
+  
+  const joinElement = screen.getByText(/join our mailing list/i);
+  expect(joinElement).toBeInTheDocument();
 });

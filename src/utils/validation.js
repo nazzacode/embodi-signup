@@ -70,8 +70,8 @@ export const validatePhone = (phone) => {
   }
 
   // Basic phone validation - could be enhanced based on requirements
-  const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-  if (!phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''))) {
+  const phoneRegex = /^[+]?[1-9][\d]{0,15}$/;
+  if (!phoneRegex.test(phone.replace(/[\s-()]/g, ''))) {
     return { isValid: false, error: 'Please enter a valid phone number' };
   }
 
