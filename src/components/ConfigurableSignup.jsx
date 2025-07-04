@@ -1,9 +1,10 @@
 import React from 'react';
-import useFormSubmission from '../hooks/useFormSubmission';
-import SuccessScreen from './SuccessScreen';
-import SignupFormFields from './forms/SignupFormFields';
+import useConfigurableForm from '../hooks/useConfigurableForm';
+import ConfigurableSuccessScreen from './ConfigurableSuccessScreen';
+import ConfigurableSignupForm from './forms/ConfigurableSignupForm';
+import { formConfig } from '../config/form-config';
 
-const SignupForm = () => {
+const ConfigurableSignup = () => {
   const {
     formData,
     submissionState,
@@ -12,11 +13,11 @@ const SignupForm = () => {
     handleInputChange,
     handleSubmit,
     handleSuccessReset,
-  } = useFormSubmission();
+  } = useConfigurableForm();
 
   // Show success screen after successful submission
   if (submissionState.isSuccess) {
-    return <SuccessScreen onSubmitAnother={handleSuccessReset} />;
+    return <ConfigurableSuccessScreen onSubmitAnother={handleSuccessReset} />;
   }
 
   // Show main form
@@ -25,14 +26,14 @@ const SignupForm = () => {
       className="min-h-screen bg-gray-50 flex items-center justify-center px-4"
       style={{
         minHeight: '100vh',
-        backgroundColor: '#f9fafb',
+        backgroundColor: formConfig.ui.colors.background,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem',
       }}
     >
-      <SignupFormFields
+      <ConfigurableSignupForm
         formData={formData}
         onChange={handleInputChange}
         onSubmit={handleSubmit}
@@ -45,4 +46,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default ConfigurableSignup; 

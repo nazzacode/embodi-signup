@@ -1,14 +1,16 @@
 import React from 'react';
 import Button from './ui/Button';
-import { MESSAGES } from '../constants';
+import { formConfig } from '../config/form-config';
 
-const SuccessScreen = ({ onSubmitAnother }) => {
+const ConfigurableSuccessScreen = ({ onSubmitAnother }) => {
+  const { content, ui } = formConfig;
+
   return (
     <div
       className="min-h-screen bg-gray-50 flex items-center justify-center px-4"
       style={{
         minHeight: '100vh',
-        backgroundColor: '#f9fafb',
+        backgroundColor: ui.colors.background,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -19,14 +21,13 @@ const SuccessScreen = ({ onSubmitAnother }) => {
         className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg border border-gray-200 text-center"
         style={{
           width: '100%',
-          maxWidth: '28rem',
+          maxWidth: ui.container.maxWidth,
           margin: '0 auto',
-          backgroundColor: 'white',
-          borderRadius: '0.5rem',
-          boxShadow:
-            '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-          border: '1px solid #e5e7eb',
-          padding: '3rem 2rem',
+          backgroundColor: ui.container.backgroundColor,
+          borderRadius: ui.container.borderRadius,
+          boxShadow: ui.container.shadow,
+          border: ui.container.border,
+          padding: ui.container.padding,
           textAlign: 'center',
         }}
       >
@@ -43,26 +44,26 @@ const SuccessScreen = ({ onSubmitAnother }) => {
         {/* Thank You Message */}
         <h2
           style={{
-            fontFamily: "'Inter', system-ui, sans-serif",
+            fontFamily: ui.typography.fontFamily,
             fontSize: '2rem',
-            fontWeight: '600',
-            color: '#111827',
+            fontWeight: ui.typography.headingWeight,
+            color: ui.colors.primary,
             marginBottom: '1rem',
           }}
         >
-          {MESSAGES.SUCCESS.THANK_YOU}
+          {content.messages.success.heading}
         </h2>
 
         {/* Success Description */}
         <p
           style={{
-            fontFamily: "'Inter', system-ui, sans-serif",
-            fontSize: '1.125rem',
-            color: '#4B5563',
+            fontFamily: ui.typography.fontFamily,
+            fontSize: ui.typography.bodySize,
+            color: ui.colors.secondary,
             marginBottom: '2rem',
           }}
         >
-          {MESSAGES.SUCCESS.FORM_SUBMITTED}
+          {content.messages.success.description}
         </p>
 
         {/* Submit Another Button */}
@@ -72,15 +73,15 @@ const SuccessScreen = ({ onSubmitAnother }) => {
           data-testid="submit-another-button"
           style={{
             backgroundColor: 'transparent',
-            color: '#6B7280',
-            border: '1px solid #D1D5DB',
+            color: ui.colors.muted,
+            border: `1px solid ${ui.colors.border}`,
           }}
         >
-          Submit Another
+          {content.buttons.submitAnother}
         </Button>
       </div>
     </div>
   );
 };
 
-export default SuccessScreen; 
+export default ConfigurableSuccessScreen; 

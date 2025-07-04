@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import SignupForm from './components/SignupForm';
+import ConfigurableSignup from './components/ConfigurableSignup';
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
     <ErrorBoundary>
       <div className="App">
-        <SignupForm />
+        <ConfigurableSignup />
       </div>
     </ErrorBoundary>
   );
