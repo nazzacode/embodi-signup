@@ -21,6 +21,7 @@ const useConfigurableForm = (initialFormData = {}) => {
   });
   const [validationErrors, setValidationErrors] = useState({});
   const [formStage, setFormStage] = useState(FORM_STAGES.INITIAL);
+  const [recordId, setRecordId] = useState(null); // Store record ID for updates
 
   const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -117,10 +118,12 @@ const useConfigurableForm = (initialFormData = {}) => {
     });
 
     try {
-      await submitForm(formData);
+      // Pass recordId for updates (will be null for initial submission)
+      const response = await submitForm(formData, recordId);
       
       if (formStage === FORM_STAGES.INITIAL) {
-        // First submission (email only) - expand the form
+        // First submission (email only) - record created, expand the form
+        setRecordId(response.recordId); // Store the record ID for updates
         setSubmissionState({
           isSubmitting: false,
           isSuccess: false,
@@ -128,7 +131,7 @@ const useConfigurableForm = (initialFormData = {}) => {
         });
         setFormStage(FORM_STAGES.EXPANDED);
       } else {
-        // Final submission - show success
+        // Second submission - record updated, show success
         setSubmissionState({
           isSubmitting: false,
           isSuccess: true,
@@ -139,6 +142,7 @@ const useConfigurableForm = (initialFormData = {}) => {
         setFormData(initialData);
         setValidationErrors({});
         setFormStage(FORM_STAGES.INITIAL);
+        setRecordId(null); // Clear record ID
       }
       
     } catch (error) {
@@ -162,6 +166,7 @@ const useConfigurableForm = (initialFormData = {}) => {
       error: null,
     });
     setFormStage(FORM_STAGES.INITIAL);
+    setRecordId(null); // Clear record ID
   };
 
   /**
@@ -174,6 +179,7 @@ const useConfigurableForm = (initialFormData = {}) => {
       error: null,
     });
     setFormStage(FORM_STAGES.INITIAL);
+    setRecordId(null); // Clear record ID
   };
 
   /**
@@ -205,6 +211,7 @@ const useConfigurableForm = (initialFormData = {}) => {
     submissionState,
     validationErrors,
     formStage,
+    recordId, // For debugging and potential future use
     
     // Actions
     handleInputChange,

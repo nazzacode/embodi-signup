@@ -48,13 +48,15 @@ const apiRequest = async (url, options = {}) => {
 /**
  * Development mode form submission simulation
  * @param {Object} formData - Form data to simulate
+ * @param {string} [recordId] - Optional record ID for update simulation
  * @returns {Promise} - Simulated response
  */
-const simulateFormSubmission = async (formData) => {
+const simulateFormSubmission = async (formData, recordId = null) => {
   // eslint-disable-next-line no-console
   console.log(
     'Development mode: Simulating form submission with data:',
-    formData
+    formData,
+    recordId ? `(Updating record: ${recordId})` : '(Creating new record)'
   );
 
   // Simulate network delay
@@ -66,19 +68,24 @@ const simulateFormSubmission = async (formData) => {
     throw new Error('Simulated network error for testing');
   }
 
+  const isUpdate = !!recordId;
+  const responseRecordId = recordId || `sim_${Date.now()}`;
+
   return {
     success: true,
-    message: MESSAGES.SUCCESS.FORM_SUBMITTED,
-    recordId: `sim_${Date.now()}`,
+    message: isUpdate ? 'Record updated successfully' : MESSAGES.SUCCESS.FORM_SUBMITTED,
+    recordId: responseRecordId,
+    isUpdate,
   };
 };
 
 /**
  * Submit form data to the backend
  * @param {Object} formData - Form data to submit
+ * @param {string} [recordId] - Optional record ID for updating existing record
  * @returns {Promise} - Submission response
  */
-export const submitForm = async (formData) => {
+export const submitForm = async (formData, recordId = null) => {
   // Validate required fields before making request - only email is required
   if (!formData.email?.trim()) {
     throw new Error('Email is required');
@@ -91,7 +98,7 @@ export const submitForm = async (formData) => {
     window.location.port === '3000';
 
   if (isDevelopment) {
-    return simulateFormSubmission(formData);
+    return simulateFormSubmission(formData, recordId);
   }
 
   try {
@@ -102,6 +109,7 @@ export const submitForm = async (formData) => {
         email: formData.email.trim(),
         phone: formData.phone?.trim() || '',
         note: formData.note?.trim() || '',
+        recordId: recordId || undefined,
       }),
     });
 

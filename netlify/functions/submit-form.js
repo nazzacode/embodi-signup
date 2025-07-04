@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
 
   try {
     // Parse the request body
-    const { name, email, phone, note } = JSON.parse(event.body);
+    const { name, email, phone, note, recordId } = JSON.parse(event.body);
 
     // Validate required fields - only email is required
     if (!email) {
@@ -28,13 +28,41 @@ exports.handler = async (event, context) => {
       apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
     }).base(process.env.AIRTABLE_BASE_ID);
 
-    // Create record in Airtable
-    const record = await base(process.env.AIRTABLE_TABLE_NAME).create({
-      Name: name,
-      Email: email,
-      Phone: phone || '',
-      Note: note || '',
-    });
+    const table = base(process.env.AIRTABLE_TABLE_NAME);
+
+    let record;
+    let isUpdate = false;
+
+    if (recordId) {
+      // Update existing record
+      try {
+        record = await table.update(recordId, {
+          Name: name,
+          Email: email,
+          Phone: phone || '',
+          Note: note || '',
+        });
+        isUpdate = true;
+      } catch (updateError) {
+        // If update fails, create a new record instead
+        console.warn('Failed to update record, creating new one:', updateError.message);
+        record = await table.create({
+          Name: name,
+          Email: email,
+          Phone: phone || '',
+          Note: note || '',
+        });
+        isUpdate = false;
+      }
+    } else {
+      // Create new record
+      record = await table.create({
+        Name: name,
+        Email: email,
+        Phone: phone || '',
+        Note: note || '',
+      });
+    }
 
     return {
       statusCode: 200,
@@ -45,8 +73,9 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         success: true,
-        message: 'Form submitted successfully',
+        message: isUpdate ? 'Record updated successfully' : 'Form submitted successfully',
         recordId: record.id,
+        isUpdate,
       }),
     };
   } catch (error) {
