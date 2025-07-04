@@ -14,7 +14,7 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should submit form data to Airtable endpoint', async () => {
     const user = userEvent.setup();
-    
+
     // Mock successful Airtable response
     fetch.mockResolvedValueOnce({
       ok: true,
@@ -60,13 +60,20 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should show loading state during form submission', async () => {
     const user = userEvent.setup();
-    
+
     // Mock delayed response
     fetch.mockImplementationOnce(
-      () => new Promise(resolve => setTimeout(() => resolve({
-        ok: true,
-        json: async () => ({ message: 'Success' }),
-      }), 100))
+      () =>
+        new Promise((resolve) =>
+          setTimeout(
+            () =>
+              resolve({
+                ok: true,
+                json: async () => ({ message: 'Success' }),
+              }),
+            100
+          )
+        )
     );
 
     render(<SignupForm />);
@@ -81,7 +88,7 @@ describe('SignupForm - Airtable Integration', () => {
 
     // Should show loading state
     expect(screen.getByText(/submitting/i)).toBeInTheDocument();
-    
+
     // Wait for submission to complete
     await waitFor(() => {
       expect(screen.queryByText(/submitting/i)).not.toBeInTheDocument();
@@ -90,7 +97,7 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should show success message after successful submission', async () => {
     const user = userEvent.setup();
-    
+
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ message: 'Form submitted successfully' }),
@@ -114,7 +121,7 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should show error message when submission fails', async () => {
     const user = userEvent.setup();
-    
+
     fetch.mockRejectedValueOnce(new Error('Network error'));
 
     render(<SignupForm />);
@@ -135,7 +142,7 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should handle Airtable error responses', async () => {
     const user = userEvent.setup();
-    
+
     fetch.mockResolvedValueOnce({
       ok: false,
       status: 400,
@@ -160,7 +167,7 @@ describe('SignupForm - Airtable Integration', () => {
 
   test('should reset form after successful submission', async () => {
     const user = userEvent.setup();
-    
+
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ message: 'Form submitted successfully' }),
@@ -188,7 +195,9 @@ describe('SignupForm - Airtable Integration', () => {
     });
 
     // Click "Submit Another" to return to form
-    const submitAnotherButton = screen.getByRole('button', { name: /submit another/i });
+    const submitAnotherButton = screen.getByRole('button', {
+      name: /submit another/i,
+    });
     await user.click(submitAnotherButton);
 
     // Now verify the form is reset
@@ -197,7 +206,7 @@ describe('SignupForm - Airtable Integration', () => {
       const newEmailInput = screen.getByPlaceholderText('EMAIL *');
       const newPhoneInput = screen.getByPlaceholderText('PHONE');
       const newNoteInput = screen.getByPlaceholderText('NOTE');
-      
+
       expect(newNameInput.value).toBe('');
       expect(newEmailInput.value).toBe('');
       expect(newPhoneInput.value).toBe('');
@@ -211,11 +220,11 @@ describe('SignupForm - Airtable Integration', () => {
     render(<SignupForm />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
-    
+
     // Try to submit empty form
     await user.click(submitButton);
 
     // Should not call fetch
     expect(fetch).not.toHaveBeenCalled();
   });
-}); 
+});
