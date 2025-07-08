@@ -89,7 +89,6 @@ src/
 ### Environment Variables
 - Use .env files for configuration
 - Never commit sensitive data
-- Provide .env.example with all required variables
 - Validate environment variables on app start
 
 ### Constants
@@ -128,7 +127,7 @@ src/
 ### Code Documentation
 - Document complex business logic
 - Use JSDoc for function documentation
-- Keep README up to date
+- Keep README  and documentationup to date
 - Document deployment process
 
 ### Component Documentation
