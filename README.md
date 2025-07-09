@@ -1,4 +1,4 @@
-# Overview
+# Embodi Signup
 
 This document provides a comprehensive overview of the `embodi-signup` repository, a React-based mailing list signup application designed for Embodi Computing. The system features a modern, responsive frontend with serverless backend integration for collecting user signups and storing them in Airtable.
 

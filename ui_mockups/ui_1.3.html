@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embodi Computing - Spatial Computing Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Innovative 3D Grid Background */
+        .spatial-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grid-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+            transform-style: preserve-3d;
+        }
+
+        .grid-layer::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+            animation: gridFloat 20s ease-in-out infinite;
+        }
+
+        .grid-layer:nth-child(1) {
+            transform: rotateX(5deg) translateZ(0px);
+        }
+
+        .grid-layer:nth-child(2) {
+            transform: rotateX(10deg) translateZ(-50px);
+            opacity: 0.3;
+        }
+
+        .grid-layer:nth-child(3) {
+            transform: rotateX(15deg) translateZ(-100px);
+            opacity: 0.15;
+        }
+
+        @keyframes gridFloat {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(0px) translateX(10px); }
+            75% { transform: translateY(10px) translateX(5px); }
+        }
+
+        /* Holographic Particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.4; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+        }
+
+        /* Main Container with Spatial Depth */
+        .container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 2;
+            perspective: 1000px;
+        }
+
+        /* Revolutionary Floating Interface */
+        .signup-interface {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            transform-style: preserve-3d;
+            animation: interfaceFloat 12s ease-in-out infinite;
+        }
+
+        @keyframes interfaceFloat {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            25% { transform: translateY(-8px) rotateY(-1deg); }
+            50% { transform: translateY(0px) rotateY(0deg); }
+            75% { transform: translateY(8px) rotateY(1deg); }
+        }
+
+        /* Innovative Multi-Layer Glass Panel */
+        .glass-panel {
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.1),
+                0 8px 32px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transform: translateZ(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 24px;
+            pointer-events: none;
+        }
+
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.2), 
+                transparent 30%, 
+                transparent 70%, 
+                rgba(255, 255, 255, 0.1));
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        .glass-panel:hover {
+            transform: translateZ(10px) scale(1.02);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.15),
+                0 12px 48px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        /* Floating Logo with Depth */
+        .logo {
+            position: relative;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .logo-text {
+            font-family: ui-monospace, monospace;
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-backdrop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: logoGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Innovative Heading Design */
+        .heading-section {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .main-heading {
+            font-size: 40px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Spatial Form Elements */
+        .form-container {
+            position: relative;
+        }
+
+        .form-field {
+            position: relative;
+            margin-bottom: 24px;
+            transform-style: preserve-3d;
+        }
+
+        .form-field:hover {
+            transform: translateZ(5px);
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .field-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .field-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 0 0 4px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .field-explainer {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 8px;
+            padding-left: 4px;
+            font-style: italic;
+        }
+
+        /* Revolutionary Submit Button */
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .submit-button {
+            position: relative;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateZ(0);
+            overflow: hidden;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateZ(8px) scale(1.05);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                rgba(255, 255, 255, 0.25) 50%, 
+                rgba(255, 255, 255, 0.2) 100%);
+            box-shadow: 
+                0 16px 48px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .submit-button:hover::before {
+            left: 100%;
+        }
+
+        .submit-button:active {
+            transform: translateZ(2px) scale(0.98);
+        }
+
+        .submit-subtext {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* Holographic Accent Elements */
+        .accent-orb {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(27, 94, 107, 0.1) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .accent-orb.primary {
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .accent-orb.secondary {
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation-delay: 7s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+            33% { transform: translateY(-30px) scale(1.1); opacity: 0.6; }
+            66% { transform: translateY(30px) scale(0.9); opacity: 0.4; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glass-panel {
+                padding: 32px 24px;
+                margin: 16px;
+            }
+            
+            .main-heading {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .logo-text {
+                font-size: 28px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Innovative 3D Grid Background -->
+    <div class="spatial-grid">
+        <div class="grid-layer"></div>
+        <div class="grid-layer"></div>
+        <div class="grid-layer"></div>
+    </div>
+
+    <!-- Holographic Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Interface -->
+    <div class="container">
+        <!-- Holographic Accent Orbs -->
+        <div class="accent-orb primary"></div>
+        <div class="accent-orb secondary"></div>
+        
+        <div class="signup-interface">
+            <div class="glass-panel">
+                <!-- Logo Section -->
+                <div class="logo">
+                    <div class="logo-backdrop"></div>
+                    <div class="logo-text">Embodi Computing</div>
+                </div>
+
+                <!-- Heading Section -->
+                <div class="heading-section">
+                    <h1 class="main-heading">So you want a spatial computer?</h1>
+                    <p class="subtitle">We've got the missing piece.</p>
+                </div>
+
+                <!-- Form Section -->
+                <form class="form-container">
+                    <div class="form-field">
+                        <input 
+                            type="email" 
+                            class="field-input" 
+                            placeholder="Email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <input 
+                            type="text" 
+                            class="field-input" 
+                            placeholder="Name (optional)"
+                        >
+                        <div class="field-explainer">To address you by name.</div>
+                    </div>
+
+                    <div class="form-field">
+                        <input 
+                            type="tel" 
+                            class="field-input" 
+                            placeholder="Phone (optional)"
+                        >
+                        <div class="field-explainer">Get updates 48hrs in advance.</div>
+                    </div>
+
+                    <div class="submit-section">
+                        <button type="submit" class="submit-button">
+                            Submit
+                        </button>
+                        <div class="submit-subtext">~1 update/month, never spam.</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Holographic particles generation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Enhanced form interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add focus/blur animations to form fields
+            const inputs = document.querySelectorAll('.field-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateZ(8px) scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateZ(0) scale(1)';
+                });
+            });
+
+            // Enhanced submit button interaction
+            const submitBtn = document.querySelector('.submit-button');
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Add loading state
+                this.innerHTML = 'Submitting...';
+                this.style.background = 'linear-gradient(135deg, rgba(27, 94, 107, 0.3) 0%, rgba(27, 94, 107, 0.2) 100%)';
+                
+                // Simulate submission
+                setTimeout(() => {
+                    this.innerHTML = 'Thank you!';
+                    this.style.background = 'linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(255, 107, 53, 0.2) 100%)';
+                }, 2000);
+            });
+        });
+
+        // Parallax effect for spatial depth
+        document.addEventListener('mousemove', function(e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            const signupInterface = document.querySelector('.signup-interface');
+            const translateX = (mouseX - 0.5) * 20;
+            const translateY = (mouseY - 0.5) * 20;
+            
+            signupInterface.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+        });
+    </script>
+</body>
+</html>

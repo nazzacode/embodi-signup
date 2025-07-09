@@ -18,7 +18,7 @@ We want to replicate the look and feel of a cutting edge spatial/XR user interfa
 
 ## Brand Essence
 - Futuristic XR computer user interface using blur transparency.
-- Blueprint/technical-drawing high tech architecturetheme.
+- Blueprint/technical-drawing/high-tech-architecture theme.
 - Ultra High tech, clean, minimal, and modern
 - Blur transparency: central element should have liquid glass blur (Apple liquid glass inspired).
 - Healthtech/medical clean and sophisticated look.
@@ -27,20 +27,20 @@ We want to replicate the look and feel of a cutting edge spatial/XR user interfa
 ## Color Pallete vibes
 <!-- do some research and attach some images of examples -->
 <!-- - Light/white: main background   -->
-- Medium metallic grey: Logo
-- Healthcare electric blue: primary gradient/accent (also green maybe?)
-- Deep charcoal: primary text, strong contrast
-- Medium grey: secondary text, subtitles
+<!-- - Medium metallic grey: Logo -->
+<!-- - Healthcare electric blue: primary gradient/accent (also green maybe?) -->
+<!-- - Deep charcoal: primary text, strong contrast -->
+<!-- - Medium grey: secondary text, subtitles -->
 
 ## Visual Design System
-- background: start with medical a mainly white + blue/green/lightgrey? blured gradient.
-- rounded corners: 0.5rem (8px)
-- Logo text (Embodi Computing): You can style for now! show me what youve got, but it should be a high tech, clean, minimal, and modern design.
+<!-- - background: start with medical a mainly white + blue/green/lightgrey? blured gradient. -->
+<!-- - rounded corners: 0.5rem (8px) -->
+<!-- - Logo text (Embodi Computing): You can style for now! show me what youve got, but it should be a high tech, clean, minimal, and modern design. -->
 
 ### Typography
-- please keep keep to a consistent design system and put the fonts you are using here. 
-- Use a modern, clean and minimal main sans-serif font.
-- Use a modern take on a typewriter monospace fornt and as a secondary.
+<!-- - please keep keep to a consistent design system and put the fonts you are using here.  -->
+<!-- - Use a modern, clean and minimal main sans-serif font. -->
+<!-- - Use a modern take on a typewriter monospace fornt and as a secondary. -->
 
 ### Do's
 ✅ Modern typography with proper hierarchy  
