@@ -9,6 +9,13 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // Log the incoming request for debugging
+  console.log('Function invoked with:', {
+    method: event.httpMethod,
+    body: event.body,
+    headers: event.headers
+  });
+
   try {
     // Parse the request body
     const { name, email, phone, note, recordId } = JSON.parse(event.body);
@@ -22,6 +29,16 @@ exports.handler = async (event, context) => {
         }),
       };
     }
+
+    // Log environment variables for debugging
+    console.log('Environment variables check:', {
+      hasToken: !!process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
+      hasBaseId: !!process.env.AIRTABLE_BASE_ID,
+      hasTableName: !!process.env.AIRTABLE_TABLE_NAME,
+      tokenLength: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN?.length || 0,
+      baseId: process.env.AIRTABLE_BASE_ID,
+      tableName: process.env.AIRTABLE_TABLE_NAME
+    });
 
     // Initialize Airtable
     const base = new Airtable({
