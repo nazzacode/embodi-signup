@@ -41,11 +41,6 @@ exports.handler = async (event, context) => {
     });
 
     // Initialize Airtable
-    console.log('Initializing Airtable with:', {
-      baseId: process.env.AIRTABLE_BASE_ID,
-      tableName: process.env.AIRTABLE_TABLE_NAME
-    });
-
     const base = new Airtable({
       apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
     }).base(process.env.AIRTABLE_BASE_ID);
@@ -55,50 +50,35 @@ exports.handler = async (event, context) => {
     let record;
     let isUpdate = false;
 
-    try {
-      if (recordId) {
-        // Update existing record
-        console.log('Attempting to update record:', recordId);
-        try {
-          record = await table.update(recordId, {
-            Name: name,
-            Email: email,
-            Phone: phone || '',
-            Note: note || '',
-          });
-          isUpdate = true;
-          console.log('Record updated successfully:', record.id);
-        } catch (updateError) {
-          // If update fails, create a new record instead
-          console.warn('Failed to update record, creating new one:', updateError.message);
-          record = await table.create({
-            Name: name,
-            Email: email,
-            Phone: phone || '',
-            Note: note || '',
-          });
-          isUpdate = false;
-          console.log('New record created instead:', record.id);
-        }
-      } else {
-        // Create new record
-        console.log('Creating new record with data:', { name, email, phone, note });
+    if (recordId) {
+      // Update existing record
+      try {
+        record = await table.update(recordId, {
+          Name: name,
+          Email: email,
+          Phone: phone || '',
+          Note: note || '',
+        });
+        isUpdate = true;
+      } catch (updateError) {
+        // If update fails, create a new record instead
+        console.warn('Failed to update record, creating new one:', updateError.message);
         record = await table.create({
           Name: name,
           Email: email,
           Phone: phone || '',
           Note: note || '',
         });
-        console.log('New record created successfully:', record.id);
+        isUpdate = false;
       }
-    } catch (airtableError) {
-      console.error('Airtable API error:', airtableError);
-      console.error('Airtable error details:', {
-        message: airtableError.message,
-        statusCode: airtableError.statusCode,
-        error: airtableError.error
+    } else {
+      // Create new record
+      record = await table.create({
+        Name: name,
+        Email: email,
+        Phone: phone || '',
+        Note: note || '',
       });
-      throw airtableError;
     }
 
     return {
