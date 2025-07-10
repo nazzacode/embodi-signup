@@ -1,0 +1,4 @@
+- get it to ask you questions 
+- get it to update a todo.md file. 
+- help me make a plan (step by step)
+- 

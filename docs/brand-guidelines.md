@@ -9,7 +9,6 @@ We want to replicate the look and feel of a cutting edge spatial/XR user interfa
 - Main UI should be made up of translucent blured grey frames, white(ish) outlines and white(ish) text.
 - We want a kind of " engineering blueprint" style with a major and minor background grid.
 
-
 ## Requested Features
 - Centered header bar with the embodi text logo.
 - 3D "rendered" grid background: like a blueprint, major and minor lines. The kind of thing you see in a 3d rendering of a building.
