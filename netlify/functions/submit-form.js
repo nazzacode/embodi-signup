@@ -87,14 +87,31 @@ exports.handler = async (event, context) => {
     });
     
     // Check environment variables
-    console.log('Environment check:', {
+    const envCheck = {
       hasToken: !!process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
       hasBaseId: !!process.env.AIRTABLE_BASE_ID,
       hasTableName: !!process.env.AIRTABLE_TABLE_NAME,
       tokenLength: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN?.length || 0,
       baseId: process.env.AIRTABLE_BASE_ID,
       tableName: process.env.AIRTABLE_TABLE_NAME
-    });
+    };
+    
+    console.log('Environment check:', envCheck);
+    
+    // Provide more specific error messages based on missing variables
+    let errorMessage = 'Failed to submit form. Please try again.';
+    let debugInfo = error.message;
+    
+    if (!envCheck.hasToken) {
+      errorMessage = 'Server configuration error: Missing Airtable token';
+      debugInfo = 'AIRTABLE_PERSONAL_ACCESS_TOKEN not set';
+    } else if (!envCheck.hasBaseId) {
+      errorMessage = 'Server configuration error: Missing Airtable base ID';
+      debugInfo = 'AIRTABLE_BASE_ID not set';
+    } else if (!envCheck.hasTableName) {
+      errorMessage = 'Server configuration error: Missing Airtable table name';
+      debugInfo = 'AIRTABLE_TABLE_NAME not set';
+    }
     
     return {
       statusCode: 500,
@@ -105,8 +122,9 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         success: false,
-        error: 'Failed to submit form. Please try again.',
-        debug: error.message // Temporary for debugging
+        error: errorMessage,
+        debug: debugInfo,
+        envCheck: envCheck // Include environment check for debugging
       }),
     };
   }
