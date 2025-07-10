@@ -108,7 +108,6 @@ export const submitForm = async (formData, recordId = null) => {
         name: formData.name?.trim() || '',
         email: formData.email.trim(),
         phone: formData.phone?.trim() || '',
-        note: formData.note?.trim() || '',
         recordId: recordId || undefined,
       }),
     });

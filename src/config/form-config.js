@@ -183,9 +183,7 @@ export const formConfig = {
       phone: {
         maxLength: 20,
       },
-      note: {
-        maxLength: 1000,
-      },
+
     },
   },
 

@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
 
   try {
     // Parse the request body
-    const { name, email, phone, note, recordId } = JSON.parse(event.body);
+    const { name, email, phone, recordId } = JSON.parse(event.body);
 
     // Validate required fields - only email is required
     if (!email) {
@@ -57,7 +57,6 @@ exports.handler = async (event, context) => {
           Name: name,
           Email: email,
           Phone: phone || '',
-          Note: note || '',
         });
         isUpdate = true;
       } catch (updateError) {
@@ -67,7 +66,6 @@ exports.handler = async (event, context) => {
           Name: name,
           Email: email,
           Phone: phone || '',
-          Note: note || '',
         });
         isUpdate = false;
       }
@@ -77,7 +75,6 @@ exports.handler = async (event, context) => {
         Name: name,
         Email: email,
         Phone: phone || '',
-        Note: note || '',
       });
     }
 

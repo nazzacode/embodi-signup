@@ -9,7 +9,6 @@ export const FORM_FIELDS = {
   NAME: 'name',
   EMAIL: 'email',
   PHONE: 'phone',
-  NOTE: 'note',
 };
 
 export const FORM_VALIDATION = {
@@ -18,7 +17,6 @@ export const FORM_VALIDATION = {
   MAX_NAME_LENGTH: 100,
   MAX_EMAIL_LENGTH: 254,
   MAX_PHONE_LENGTH: 20,
-  MAX_NOTE_LENGTH: 1000,
 };
 
 // UI Configuration

@@ -78,26 +78,7 @@ export const validatePhone = (phone) => {
   return { isValid: true, error: null };
 };
 
-/**
- * Validates a note field (optional)
- * @param {string} note - Note to validate
- * @returns {Object} - { isValid: boolean, error: string|null }
- */
-export const validateNote = (note) => {
-  // Note is optional, so empty is valid
-  if (!note || !note.trim()) {
-    return { isValid: true, error: null };
-  }
 
-  if (note.length > FORM_VALIDATION.MAX_NOTE_LENGTH) {
-    return {
-      isValid: false,
-      error: `Note must be less than ${FORM_VALIDATION.MAX_NOTE_LENGTH} characters`,
-    };
-  }
-
-  return { isValid: true, error: null };
-};
 
 /**
  * Validates just the email field for initial submission
@@ -150,12 +131,7 @@ export const validateForm = (formData) => {
     isValid = false;
   }
 
-  // Validate note (optional)
-  const noteValidation = validateNote(formData.note);
-  if (!noteValidation.isValid) {
-    errors.note = noteValidation.error;
-    isValid = false;
-  }
+
 
   return { isValid, errors };
 };
