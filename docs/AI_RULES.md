@@ -1,0 +1,3 @@
+- ask me questions 
+- update a todo.md file 
+- help me make a step by step plan

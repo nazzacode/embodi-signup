@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embodi Computing - Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&display=swap');
+        
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+        }
+        
+        .brand-font {
+            font-family: 'Bungee Hairline', cursive;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('./assets/bg1.jpg');">
+    <!-- Navigation Bar -->
+    <nav class="w-full py-6 flex justify-center">
+        <div class="bg-black/20 backdrop-blur-sm rounded shadow-lg border border-white/20 px-4 py-2">
+            <div class="flex space-x-4">
+                <a href="#" class="text-white font-semibold text-base hover:text-gray-200 transition-colors">Embodi</a>
+                <a href="#" class="text-white font-normal text-base hover:text-gray-200 transition-colors">blog</a>
+                <a href="#" class="text-white font-normal text-base hover:text-gray-200 transition-colors">contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="flex items-center justify-center p-4 min-h-[calc(100vh-120px)]">
+        <div class="w-full max-w-sm">
+        <!-- Form Card -->
+        <div class="bg-black/20 backdrop-blur-sm rounded shadow-lg border border-white/20 p-8">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <!-- Main Heading -->
+                <h2 class="text-2xl font-medium text-white mb-4">So you want a spatial computer?</h2>
+                
+                <!-- Subtitle -->
+                <p class="text-2xl font-medium text-gray-200 mb-8">We've got the missing piece.</p>
+                
+                <!-- Call to Action -->
+                <p class="text-sm text-gray-300">Join us for updates and opportunities on the future of computing.</p>
+            </div>
+            
+            <!-- Form -->
+            <form class="space-y-8">
+                <!-- Email Field -->
+                <div>
+                    <input 
+                        type="email" 
+                        placeholder="Email" 
+                        required
+                        class="w-full px-4 py-3 border border-white/30 bg-white/10 backdrop-blur-sm rounded focus:ring-2 focus:ring-blue-400 focus:border-blue-400 focus:bg-white/20 text-lg placeholder-gray-300 text-white transition-all outline-none"
+                    >
+                </div>
+                
+                <!-- Submit Button -->
+                <div>
+                    <button 
+                        type="submit"
+                        class="w-full bg-white text-black py-3 px-6 rounded font-medium text-lg hover:bg-gray-100 hover:shadow-lg hover:scale-[1.02] focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200"
+                    >
+                        Submit
+                    </button>
+                    
+                    <!-- Subtext -->
+                    <div class="text-center mt-2">
+                        <p class="text-xs text-gray-400">1 update per month, never spam.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

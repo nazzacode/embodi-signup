@@ -1,8 +1,13 @@
 # UI Design Prompt
 
-## Goal
-Single page html mockup of our signup page.
+Create a single page html + tailwind mockup of our signup page in `ui_mockups/design2.html`.
+- Just the first part of the 2-part progressive interface (text, email & submit).
+- Using the text content in `src/config/form-config.js`.
+- Start with a simple and clean wireframe design, we will iterate the layout then add the styles.
 
+
+
+ 
 ## Design system
 
 - Spatial UI

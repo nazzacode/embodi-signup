@@ -22,7 +22,7 @@ You always build UI iteration & experimentation in single html file
 3. **Styles**: Use **Tailwind CSS** via **CDN** for styling.
 4. **Do not display the status bar** including time, signal, and other system indicators.
 5. **Do not display non-mobile elements**, such as scrollbars.
-6. **All text should be only black or white**.
+<!-- 6. **All text should be only black or white**. -->
 7. Choose a **4 pt or 8 pt spacing system**—all margins, padding, line-heights, and element sizes must be exact multiples.
 8. Use **consistent spacing tokens** (e.g., 4, 8, 16, 24, 32px) — never arbitrary values like 5 px or 13 px.
 9. Apply **visual grouping** ("spacing friendship"): tighter gaps (4-8px) for related items, larger gaps (16-24px) for distinct groups.
@@ -37,7 +37,7 @@ You always build UI iteration & experimentation in single html file
 
 ## Color Style (Default Minimal)
 
-* Use a **minimal palette**: default to **black, white, and neutrals**—no flashy gradients or mismatched hues.
+<!-- * Use a **minimal palette**: default to **black, white, and neutrals**—no flashy gradients or mismatched hues. -->
 * Follow a **60-30-10 ratio**: \~60% background, \~30% surface, \~10% accents.
 <!-- * Use **neutral greys** (e.g., ■ #F5F5F5, ■ #BFBFBF, ■ #373530) for backgrounds, cards, dividers — no saturated colors by default. -->
 * Accent colors limited to **one subtle tint**. Interactive elements like links or buttons use this tone sparingly.
