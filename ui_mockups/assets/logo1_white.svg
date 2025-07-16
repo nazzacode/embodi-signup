@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:guide x="256" y="256" angle="0"/>
+  </defs>
+  <rect x="64.566" y="97.308" width="383.166" height="383.166" style="stroke-linecap: round; fill-opacity: 0; stroke-width: 10px; transform-box: fill-box; transform-origin: 50% 50%; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);"/>
+  <ellipse style="fill-opacity: 0; stroke-width: 10px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" cx="256.149" cy="253.047" rx="227.427" ry="227.427"/>
+</svg>

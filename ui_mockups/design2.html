@@ -22,8 +22,12 @@
     <!-- Navigation Bar -->
     <nav class="w-full py-6 flex justify-center">
         <div class="bg-black/20 backdrop-blur-sm rounded shadow-lg border border-white/20 px-4 py-2">
-            <div class="flex space-x-4">
-                <a href="#" class="text-white font-medium text-base hover:text-gray-200 transition-colors">Embodi</a>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="flex items-center space-x-1 text-white font-medium text-base hover:text-gray-200 transition-colors">
+                    <img src="./assets/logo2_white.svg" alt="Embodi Logo" class="h-5 w-5">
+                    <span>Embodi</span>
+                </a>
+                <a href="#" class="text-white font-normal text-base hover:text-gray-200 transition-colors">home</a>
                 <a href="#" class="text-white font-normal text-base hover:text-gray-200 transition-colors">blog</a>
                 <a href="#" class="text-white font-normal text-base hover:text-gray-200 transition-colors">contact</a>
             </div>
@@ -32,11 +36,11 @@
     
     <!-- Main Container -->
     <div class="flex items-center justify-center p-4 min-h-[calc(100vh-120px)]">
-        <div class="w-full max-w-sm">
+        <div class="w-full max-w-md">
         <!-- Form Card -->
         <div class="bg-black/20 backdrop-blur-sm rounded shadow-lg border border-white/20 p-8">
             <!-- Header -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <!-- Main Heading -->
                 <h2 class="text-2xl font-medium text-white mb-8">So you want a spatial computer? We've got the missing piece.</h2>
                 
@@ -45,7 +49,7 @@
             </div>
             
             <!-- Form -->
-            <form class="space-y-8">
+            <form class="space-y-6">
                 <!-- Email Field -->
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -76,6 +80,11 @@
                     <!-- Subtext -->
                     <div class="text-center mt-2">
                         <p class="text-xs text-gray-400">1 update per month, never spam.</p>
+                    </div>
+                    
+                    <!-- Terms Disclaimer -->
+                    <div class="text-center mt-4">
+                        <p class="text-xs text-gray-500">By submitting, you agree to our <a href="#" class="text-gray-300 hover:text-white transition-colors underline">Terms of Service</a> including non-disclosure obligations.</p>
                     </div>
                 </div>
             </form>
