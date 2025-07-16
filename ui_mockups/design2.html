@@ -20,20 +20,36 @@
         .text-gray-350 {
             color: #a8a8a8;
         }
+        
+        /* Smooth transitions for all interactive elements */
+        .smooth-hover {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .smooth-hover:hover {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('./assets/bg1.jpg');">
     <!-- Navigation Bar -->
     <nav class="w-full py-6 flex justify-center">
-        <div class="bg-black/20 backdrop-blur-sm rounded shadow-xl border border-white/20 px-4 py-1.5">
-            <div class="flex items-center space-x-4">
-                <a href="#" class="flex items-center space-x-1 text-gray-200 font-normal text-base hover:text-gray-200 transition-colors">
+        <div class="flex items-center space-x-4">
+            <!-- Logo Section -->
+            <div class="bg-black/20 backdrop-blur-sm rounded shadow-xl border border-white/20 px-4 py-1.5 smooth-hover">
+                <a href="#" class="flex items-center space-x-1 text-gray-200 font-normal text-base hover:text-white transition-all duration-200">
                     <img src="./assets/logo2_white.svg" alt="Embodi Logo" class="h-5 w-5">
                     <span>Embodi</span>
                 </a>
-                <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 transition-colors bg-white/10 px-2 py-0.5 rounded">home</a>
-                <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 transition-colors">blog</a>
-                <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 transition-colors">contact</a>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="bg-black/20 backdrop-blur-sm rounded shadow-xl border border-white/20 px-4 py-1.5 smooth-hover">
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 hover:bg-white/20 transition-all duration-200 bg-white/10 px-2 py-0.5 rounded">home</a>
+                    <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 hover:bg-white/10 transition-all duration-200 px-2 py-0.5 rounded">blog</a>
+                    <a href="#" class="text-gray-350 font-normal text-base hover:text-gray-200 hover:bg-white/10 transition-all duration-200 px-2 py-0.5 rounded">contact</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -65,7 +81,7 @@
                         type="email" 
                         placeholder="Email" 
                         required
-                        class="w-full pl-10 pr-4 py-3 border border-white/40 bg-white/15 backdrop-blur-sm rounded focus:ring-2 focus:ring-white/50 focus:border-white/50 focus:bg-white/25 text-lg placeholder-gray-300 text-white transition-all outline-none shadow-lg"
+                        class="w-full pl-10 pr-4 py-3 border border-white/40 bg-white/15 backdrop-blur-sm rounded focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 hover:bg-white/20 hover:border-white/50 text-lg placeholder-gray-300 text-white transition-all duration-300 outline-none shadow-lg"
                     >
                 </div>
                 
@@ -73,7 +89,7 @@
                 <div>
                     <button 
                         type="submit"
-                        class="w-full bg-white text-black py-3 px-6 rounded font-medium text-lg hover:bg-gray-100 hover:shadow-lg hover:scale-[1.02] focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 flex items-center justify-center"
+                        class="w-full bg-white text-black py-3 px-6 rounded font-medium text-lg hover:bg-gray-50 hover:shadow-xl hover:scale-[1.01] focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-transparent active:scale-[0.99] transition-all duration-200 flex items-center justify-center"
                     >
                         Submit
                         <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,12 +99,12 @@
                     
                     <!-- Subtext -->
                     <div class="text-center mt-2">
-                        <p class="text-xs text-gray-400">1 update per month, never spam.</p>
+                        <p class="text-xs text-gray-350">1 update per month, never spam.</p>
                     </div>
                     
                     <!-- Terms Disclaimer -->
                     <div class="text-center mt-4">
-                        <p class="text-xs text-gray-500">By submitting, you agree to our <a href="#" class="text-gray-300 hover:text-white transition-colors underline">Terms of Service</a> including non-disclosure obligations.</p>
+                        <p class="text-xs text-gray-350">By submitting, you agree to our <a href="#" class="text-gray-300 hover:text-white transition-colors underline">Terms of Service</a> including non-disclosure obligations.</p>
                     </div>
                 </div>
             </form>
