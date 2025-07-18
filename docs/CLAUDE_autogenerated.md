@@ -104,8 +104,8 @@ REACT_APP_FORM_ENDPOINT=/.netlify/functions/submit-form
 
 The application follows Embodi Computing's spatial computing aesthetic:
 - **Design System**: Translucent UI panels with blur effects
-- **Color Palette**: Medical white/blue gradient backgrounds with deep charcoal text
-- **Typography**: Modern sans-serif (Inter) with clean hierarchy
+<!-- - **Color Palette**: Medical white/blue gradient backgrounds with deep charcoal text -->
+- **Typography**: Modern sans-serif with clean hierarchy
 - **Styling**: Tailwind CSS with custom spatial computing-inspired design
 
 ## Testing Strategy

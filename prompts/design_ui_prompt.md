@@ -5,8 +5,6 @@ Create a single page html + tailwind mockup of our signup page in `ui_mockups/de
 - Using the text content in `src/config/form-config.js`.
 - Start with a simple and clean wireframe design, we will iterate the layout then add the styles.
 
-
-
  
 ## Design system
 
@@ -37,8 +35,6 @@ Implement one UI html mockup of our signup page.
  
 ### Background
 Use `ui_mockups/assets/bg3.jpg` as background.
-
-##  
 
 ### Header
 - Centered header, not extend to the sides.
