@@ -1,1 +1,3 @@
-- Don't just use your internal todo list. [(1) Requirements, (2) Todos, (3) Planning] go in `issues/<issue>no>.md`; with headings in that order.
+- Don't just use your internal todo list. Create and manage work items in `issues/<issue_no>_<issue_name>.md. 
+  - Use the headings (1) Requirements, (2) Todos, (3) Planning
+  - Remember to update the specificiation and todos as you go.

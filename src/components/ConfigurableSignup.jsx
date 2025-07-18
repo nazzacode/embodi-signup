@@ -2,7 +2,6 @@ import React from 'react';
 import useConfigurableForm from '../hooks/useConfigurableForm';
 import ConfigurableSuccessScreen from './ConfigurableSuccessScreen';
 import ConfigurableSignupForm from './forms/ConfigurableSignupForm';
-import { formConfig } from '../config/form-config';
 
 const ConfigurableSignup = () => {
   const {
@@ -22,17 +21,7 @@ const ConfigurableSignup = () => {
 
   // Show main form
   return (
-    <div
-      className="min-h-screen bg-gray-50 flex items-center justify-center px-4"
-      style={{
-        minHeight: '100vh',
-        backgroundColor: formConfig.ui.colors.background,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1rem',
-      }}
-    >
+    <div className="w-full max-w-sm">
       <ConfigurableSignupForm
         formData={formData}
         onChange={handleInputChange}

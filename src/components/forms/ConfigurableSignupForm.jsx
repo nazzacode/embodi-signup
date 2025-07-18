@@ -25,93 +25,53 @@ const ConfigurableSignupForm = ({
   const { content, ui } = formConfig;
 
   return (
-    <div
-      className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg border border-gray-200"
-      style={{
-        width: '100%',
-        maxWidth: ui.container.maxWidth,
-        margin: '0 auto',
-        backgroundColor: ui.container.backgroundColor,
-        borderRadius: ui.container.borderRadius,
-        boxShadow: ui.container.shadow,
-        border: ui.container.border,
-        padding: ui.container.padding,
-      }}
-    >
+    <div className="bg-black/30 backdrop-blur-sm rounded shadow-2xl border border-white/30 p-8">
       {/* Header */}
-      <div
-        className="text-center mb-12"
-        style={{ 
-          textAlign: 'center', 
-          marginBottom: ui.spacing.headerMargin 
-        }}
-      >
-        {/* Logo */}
-        <div
-          className="font-sans text-lg text-gray-600 mb-3"
-          style={{
-            fontFamily: ui.typography.fontFamily,
-            fontSize: ui.typography.bodySize,
-            color: ui.colors.secondary,
-            marginBottom: '0.75rem',
-            fontWeight: '400',
-          }}
-        >
-          {content.branding.logo}
+      <div className="text-center mb-8">
+        {/* VR Man Image */}
+        <div className="mb-1">
+          <img 
+            src="/assets/vr_man2.png" 
+            alt="VR User" 
+            className="w-32 h-32 mx-auto opacity-80 invert drop-shadow-[0_0_16px_rgba(255,255,255,0.8)]" 
+          />
         </div>
-
-        {/* Main Heading */}
-        <h1
-          className="font-sans text-4xl font-semibold text-gray-900 mb-3 tracking-tight"
-          style={{
-            fontFamily: ui.typography.fontFamily,
-            fontSize: ui.typography.headingSize,
-            fontWeight: ui.typography.headingWeight,
-            color: ui.colors.primary,
-            marginBottom: '0.75rem',
-            letterSpacing: '-0.025em',
-          }}
-        >
-          {content.branding.mainHeading}
-        </h1>
-
-        {/* Subtitle */}
-        <p
-          className="font-sans text-lg text-gray-600 leading-relaxed"
-          style={{
-            fontFamily: ui.typography.fontFamily,
-            fontSize: ui.typography.bodySize,
-            color: ui.colors.secondary,
-            lineHeight: '1.625',
-            fontWeight: '400',
-          }}
-        >
-          {content.branding.subtitle}
-        </p>
+        
+        {/* Dynamic content based on form stage */}
+        {formStage === FORM_STAGES.INITIAL ? (
+          <>
+            {/* Main Heading */}
+            <h2 className="text-2xl font-medium text-gray-350 mb-6">
+              So you want a spatial computer? <em>We've got the missing piece.</em>
+            </h2>
+            
+            {/* Call to Action */}
+            <p className="text-sm text-gray-300">
+              We're building the first spatial desktop. Join our mailing list for more.
+            </p>
+          </>
+        ) : (
+          <>
+            {/* Thank You Message */}
+            <h2 className="text-2xl font-medium text-gray-350 mb-6">
+              {stageConfig.thankYouMessage}
+            </h2>
+            
+            {/* Explanation Message */}
+            <p className="text-sm text-gray-300">
+              {stageConfig.explanationMessage}
+            </p>
+          </>
+        )}
       </div>
 
       {/* Error Message */}
       <ErrorMessage message={error} />
 
       {/* Form */}
-      <form
-        onSubmit={onSubmit}
-        className="space-y-8"
-        style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: ui.spacing.sectionGap 
-        }}
-      >
+      <form onSubmit={onSubmit} className="space-y-4">
         {/* Dynamic Fields */}
-        <div
-          className="space-y-6"
-          style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: ui.spacing.fieldGap 
-          }}
-        >
+        <div className="space-y-4">
           {stageConfig.fields.map((fieldConfig) => (
             <div key={fieldConfig.name}>
               <FormInput
@@ -126,18 +86,6 @@ const ConfigurableSignupForm = ({
                 data-testid={`${fieldConfig.name}-input`}
               />
               
-              {/* Field explainer text */}
-              {fieldConfig.explainer && (
-                <div 
-                  style={{ 
-                    color: ui.colors.muted, 
-                    fontSize: ui.typography.smallSize, 
-                    marginTop: '0.25rem' 
-                  }}
-                >
-                  {fieldConfig.explainer}
-                </div>
-              )}
               
               {/* Validation errors */}
               {validationErrors[fieldConfig.name] && (
@@ -156,10 +104,7 @@ const ConfigurableSignupForm = ({
         </div>
 
         {/* Submit Button */}
-        <div 
-          className="pt-8" 
-          style={{ paddingTop: ui.spacing.submitPadding }}
-        >
+        <div>
           <Button
             type="submit"
             disabled={isSubmitting}
@@ -169,20 +114,25 @@ const ConfigurableSignupForm = ({
             {isSubmitting ? content.messages.loading : stageConfig.submitText}
           </Button>
           
-          {/* Subtext - only shown when configured for this stage */}
-          {stageConfig.showSubtext && (
-            <p
-              className="text-center text-sm text-gray-500 mt-3"
-              style={{
-                textAlign: 'center',
-                fontSize: ui.typography.smallSize,
-                color: ui.colors.muted,
-                marginTop: '0.75rem',
-                fontFamily: ui.typography.fontFamily,
-              }}
-            >
-              {content.messages.submitSubtext}
-            </p>
+          {/* Only show subtext and terms on initial stage */}
+          {formStage === FORM_STAGES.INITIAL && (
+            <>
+              {/* Subtext */}
+              <div className="text-center mt-2">
+                <p className="text-xs text-gray-350">1 update per month, never spam.</p>
+              </div>
+              
+              {/* Terms Disclaimer */}
+              <div className="text-center mt-3">
+                <p className="text-xs text-gray-350">
+                  By submitting, you agree to our{' '}
+                  <button className="text-gray-300 hover:text-white transition-colors underline">
+                    Terms of Service
+                  </button>{' '}
+                  including non-disclosure obligations.
+                </p>
+              </div>
+            </>
           )}
         </div>
       </form>

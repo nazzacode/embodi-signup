@@ -11,33 +11,9 @@ const FormInput = ({
   rows = 4,
   'data-testid': dataTestId,
 }) => {
-  const baseStyles = {
-    width: '100%',
-    padding: '1rem 0',
-    border: 'none',
-    borderBottom: '2px solid #E5E7EB',
-    backgroundColor: 'transparent',
-    outline: 'none',
-    color: '#111827',
-    fontFamily: "'Inter', system-ui, sans-serif",
-    fontSize: '1rem',
-    transition: 'border-color 0.2s',
-    opacity: disabled ? 0.5 : 1,
-  };
-
-  const textareaStyles = {
-    ...baseStyles,
-    resize: 'none',
-  };
-
-  const handleFocus = (e) => {
-    e.target.style.borderBottomColor = '#111827';
-  };
-
-  const handleBlur = (e) => {
-    e.target.style.borderBottomColor = '#E5E7EB';
-  };
-
+  // For email inputs, show email icon
+  const isEmailType = type === 'email';
+  
   if (type === 'textarea') {
     return (
       <textarea
@@ -49,11 +25,32 @@ const FormInput = ({
         disabled={disabled}
         placeholder={placeholder}
         data-testid={dataTestId}
-        style={textareaStyles}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 resize-none transition-colors duration-200"
+        className="w-full px-4 py-3 border border-white/40 bg-white/15 backdrop-blur-sm rounded focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 hover:bg-white/20 hover:border-white/50 text-lg placeholder-gray-300 text-white transition-all duration-300 outline-none shadow-lg resize-none"
       />
+    );
+  }
+
+  if (isEmailType) {
+    return (
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg className="h-5 w-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <input
+          type={type}
+          id={name}
+          name={name}
+          value={value}
+          onChange={onChange}
+          required={required}
+          disabled={disabled}
+          placeholder={placeholder}
+          data-testid={dataTestId}
+          className="w-full pl-10 pr-4 py-3 border border-white/40 bg-white/15 backdrop-blur-sm rounded focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 hover:bg-white/20 hover:border-white/50 text-lg placeholder-gray-300 text-white transition-all duration-300 outline-none shadow-lg"
+        />
+      </div>
     );
   }
 
@@ -68,10 +65,7 @@ const FormInput = ({
       disabled={disabled}
       placeholder={placeholder}
       data-testid={dataTestId}
-      style={baseStyles}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      className="w-full px-0 py-4 border-0 border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-gray-900 text-gray-900 font-sans text-base placeholder-gray-400 transition-colors duration-200"
+      className="w-full px-4 py-3 border border-white/40 bg-white/15 backdrop-blur-sm rounded focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 hover:bg-white/20 hover:border-white/50 text-lg placeholder-gray-300 text-white transition-all duration-300 outline-none shadow-lg"
     />
   );
 };

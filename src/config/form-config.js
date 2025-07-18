@@ -80,26 +80,15 @@ export const formConfig = {
       title: 'Additional Details',
       description: 'Optional additional information collection',
       showSubtext: false,
+      thankYouMessage: 'Thank you!',
+      explanationMessage: "We'd like to address you by name and get you updates 48hrs in advance.",
       fields: [
-        {
-          name: 'email',
-          type: FIELD_TYPES.EMAIL,
-          placeholder: 'Email',
-          required: true,
-          disabled: true, // Disabled in expanded stage
-          validation: {
-            required: true,
-            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            errorMessage: 'Please enter a valid email address',
-          },
-        },
         {
           name: 'name',
           type: FIELD_TYPES.TEXT,
           placeholder: 'Name (optional)',
           required: false,
           disabled: false,
-          explainer: 'To address you by name.',
           validation: {
             required: false,
             minLength: 2,
@@ -113,7 +102,6 @@ export const formConfig = {
           placeholder: 'Phone (optional)',
           required: false,
           disabled: false,
-          explainer: 'Get updates 48hrs in advance.',
           validation: {
             required: false,
             maxLength: 20,
@@ -121,7 +109,7 @@ export const formConfig = {
           },
         },
       ],
-      submitText: 'Submit',
+      submitText: 'Update',
       validationMode: 'full', // Full validation for this stage
     },
   ],

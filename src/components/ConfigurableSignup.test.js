@@ -17,8 +17,8 @@ describe('ConfigurableSignup', () => {
     // Check for configured content
     expect(screen.getByText(/So you want a spatial computer/i)).toBeInTheDocument();
     expect(screen.getByText(/We've got the missing piece/i)).toBeInTheDocument();
-    expect(screen.getByText(/~1 update\/month, never spam/i)).toBeInTheDocument();
-    expect(screen.getByText(/Embodi Computing/i)).toBeInTheDocument();
+    expect(screen.getByText(/1 update per month, never spam/i)).toBeInTheDocument();
+    expect(screen.getByText(/We're building the first spatial desktop/i)).toBeInTheDocument();
 
     // Check for email field from configuration
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
