@@ -41,7 +41,7 @@ const ConfigurableSignupForm = ({
         {formStage === FORM_STAGES.INITIAL ? (
           <>
             {/* Main Heading */}
-            <h2 className="text-2xl font-medium text-gray-350 mb-6">
+            <h2 className="text-2xl font-medium text-white mb-6">
               So you want a spatial computer? <em>We've got the missing piece.</em>
             </h2>
             

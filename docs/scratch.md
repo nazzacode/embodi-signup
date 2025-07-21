@@ -2,7 +2,10 @@
 
 - [ ] name / phone icons
 - [ ] contact page
-- [ ] icon and "react app" text   
+- [x] icon and "react app" text   
+- [ ] make header hieght consistent
+
+- [\] domain name
 
 
 
