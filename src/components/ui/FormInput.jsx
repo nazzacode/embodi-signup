@@ -9,10 +9,11 @@ const FormInput = ({
   required = false,
   disabled = false,
   rows = 4,
+  showIcon = true,
   'data-testid': dataTestId,
 }) => {
-  // For email inputs, show email icon
-  const isEmailType = type === 'email';
+  // For email inputs, show email icon only if showIcon is true
+  const isEmailType = type === 'email' && showIcon;
   
   if (type === 'textarea') {
     return (
