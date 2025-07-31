@@ -5,6 +5,23 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+// Fix for Google Translate and other DOM-manipulating extensions
+if (typeof window !== 'undefined') {
+  const originalRemoveChild = Node.prototype.removeChild;
+  Node.prototype.removeChild = function (child) {
+    try {
+      return originalRemoveChild.call(this, child);
+    } catch (error) {
+      if (error.name === 'NotFoundError') {
+        // eslint-disable-next-line no-console
+        console.warn('Attempted to remove a non-existent child node, likely due to browser extension interference');
+        return child;
+      }
+      throw error;
+    }
+  };
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
